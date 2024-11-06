@@ -1,4 +1,4 @@
-//% weight=100 color=#008C8C block="TFT LCD" blockId="TFT LCD" icon="\uf26c"
+//% weight=100 color=#008C8C block="TFTLCD" blockId="TFTLCD" icon="\uf26c"
 namespace TFTLCD {
 
     const St7789vAddr = 0x20;
