@@ -1,0 +1,14 @@
+{
+  "TFTLCD.clear|block": "clear TFTLCD display",
+  "TFTLCD.drawLine|block": "draw line from:|x: $x0 y: $y0 to| x: $x1 y: $y1",
+  "TFTLCD.drawLoading|block": "draw loading bar at $percent percent",
+  "TFTLCD.drawRectangle|block": "draw rectangle from:|x: $x0 y: $y0 to| x: $x1 y: $y1",
+  "TFTLCD.init|block": "initialize TFTLCD with width $width height $height",
+  "TFTLCD.newLine|block": "insert newline",
+  "TFTLCD.writeNumNewLine|block": "show number $n",
+  "TFTLCD.writeNum|block": "show (without newline) number $n",
+  "TFTLCD.writeStringNewLine|block": "show string $str",
+  "TFTLCD.writeString|block": "show (without newline) string $str",
+  "{id:category}Math": "Math",
+  "{id:category}TFTLCD": "TFTLCD"
+}

@@ -1,0 +1,14 @@
+{
+    "TFTLCD.clear|block": "清除顯示",
+    "TFTLCD.drawLine|block": "畫線 起點:|x: $x0 y: $y0 終點| x: $x1 y: $y1",
+    "TFTLCD.writeStringNewLine|block": "換行顯示字串 $str",
+    "TFTLCD.drawRectangle|block": "繪製矩形 起點:|x: $x0 y: $y0 終點| x: $x1 y: $y1",
+    "TFTLCD.writeNum|block": "換行顯示數字 $n",
+    "{id:category}TFTLCD": "TFTLCD",
+    "TFTLCD.drawLoading|block": "顯示進度條 $percent %",
+    "TFTLCD.newLine|block": "換行",
+    "TFTLCD.writeString|block": "顯示字串",
+    "{id:category}Math": "Math",
+    "TFTLCD.init|block": "TFTLCD 初始化 寬 %width 高 %height",
+    "TFTLCD.writeNumNewLine|block": "顯示數字 $n"
+}
