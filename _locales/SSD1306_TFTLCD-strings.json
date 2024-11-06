@@ -9,6 +9,5 @@
   "TFTLCD.writeNum|block": "show (without newline) number $n",
   "TFTLCD.writeStringNewLine|block": "show string $str",
   "TFTLCD.writeString|block": "show (without newline) string $str",
-  "{id:category}Math": "Math",
   "{id:category}TFTLCD": "TFTLCD"
 }

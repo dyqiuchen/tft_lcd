@@ -9,6 +9,5 @@
   "TFTLCD.writeNum|block": "新行显示数字 $n",
   "TFTLCD.writeStringNewLine|block": "新行显示字符串 $str",
   "TFTLCD.writeString|block": "显示字符串 $str",
-  "{id:category}Math": "Math",
   "{id:category}TFTLCD": "TFTLCD"
 }
