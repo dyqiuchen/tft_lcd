@@ -28,13 +28,13 @@ namespace TFTLCD {
 
         i2cCommandSend(0x10, [
             x0 >> 8 & 0xff,
-            x0 & 0x0f,
-            y0 >> 8 & 0x0f,
-            y0 & 0x0f,
-            x1 >> 8 & 0x0f,
-            x1 & 0x0f,
-            y1 >> 8 & 0x0f,
-            y1 & 0x0f
+            x0 & 0xff,
+            y0 >> 8 & 0xff,
+            y0 & 0xff,
+            x1 >> 8 & 0xff,
+            x1 & 0xff,
+            y1 >> 8 & 0xff,
+            y1 & 0xff
         ]);
     }
 }
