@@ -26,7 +26,7 @@ namespace TFTLCD {
     //% block="draw line from (%x0,%y0) to (%x1,%y1)"
     export function tft_draw_line(x0: number, y0: number, x1: number, y1: number) {
 
-        i2cCommandSend(0x01, [
+        i2cCommandSend(0x10, [
             x0 >> 8 & 0xff,
             x0 & 0xff,
             y0 >> 8 & 0xff,
