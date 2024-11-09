@@ -113,7 +113,7 @@ namespace TFTLCD {
     }
     //% block="set background color %color"
     //% color.shadow="colorNumberPicker"
-    //% color.defl=0
+    //% color.defl=0x000000
     //% weight=96
     export function tft_set_background_color(color : number) {
         verify_runtime();
