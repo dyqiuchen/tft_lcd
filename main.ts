@@ -16,10 +16,10 @@ namespace TFTLCD {
     const CMD_CLEAR_LINE = 0x71;
     const CMD_DRAW_PROGRESS = 0xA0;
 
-    enum TFTLCD_BLK_CMD {
-        //%block="blkopen"
+    enum TFTLcdBlkCmd {
+        //%block="open"
         BlkOpen,
-        //%block="blkclose"
+        //%block="close"
         BlkClose,
     }
 
@@ -63,11 +63,11 @@ namespace TFTLCD {
      * 12. 显示进度条
      */
 
-    //% block="backlight set %TFTLCD_BLK_CMD"
+    //% block="backlight set %TFTLcdBlkCmd"
     //% weight=100
-    export function tft_backlight_ctrl(cmd: TFTLCD_BLK_CMD) {
+    export function tft_backlight_ctrl(cmd: TFTLcdBlkCmd = TFTLcdBlkCmd.BlkOpen) {
         verify_runtime();
-        i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == TFTLCD_BLK_CMD.BlkOpen ? 0x01 : 0x00]);
+        i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == TFTLcdBlkCmd.BlkOpen ? 0x01 : 0x00]);
     }
     
     //% block="draw line from %x0,%y0 to %x1,%y1"
