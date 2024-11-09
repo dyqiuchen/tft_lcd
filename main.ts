@@ -113,8 +113,9 @@ namespace TFTLCD {
     }
     //% block="set background color %color"
     //% color.shadow="colorNumberPicker"
+    //% color.default=0
     //% weight=96
-    export function tft_set_background_color(color : number = 0) {
+    export function tft_set_background_color(color : number) {
         verify_runtime();
         //color RGB888位转RGB565
         let param = (((color >> 16) & 0xff) >> 3) << 11 |
