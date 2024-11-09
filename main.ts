@@ -16,7 +16,7 @@ namespace TFTLCD {
     const CMD_CLEAR_LINE = 0x71;
     const CMD_DRAW_PROGRESS = 0xA0;
 
-    enum TFTLcdBlkCmd {
+    export enum TFTLcdBlkCmd {
         //%block="open"
         BlkOpen,
         //%block="close"
