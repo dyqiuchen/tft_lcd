@@ -126,7 +126,7 @@ namespace TFTLCD {
             param & 0xff
         ]);
     }
-    //% block="set draw pen color %TFTLCD_COLOR"
+    //% block="set draw pen color %color"
     //% color.shadow="colorNumberPicker"
     //% weight=95
     export function tft_set_pen_color(color: number = 0) {
