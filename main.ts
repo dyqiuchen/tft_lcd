@@ -113,7 +113,7 @@ namespace TFTLCD {
     }
     //% block="set background color %color"
     //% color.shadow="colorNumberPicker"
-    //% color.default=0
+    //% color.default=1
     //% weight=96
     export function tft_set_background_color(color : number) {
         verify_runtime();
@@ -152,7 +152,7 @@ namespace TFTLCD {
 
     //% block="show number %num"
     //% weight=93
-    export function tft_show_num(num: number = 0) {
+    export function tft_show_num(num: number = 20) {
         let str = "" + num;
         tft_show_string(str);
     }
@@ -177,9 +177,10 @@ namespace TFTLCD {
         basic.pause(30);
     };
     //% block="Show loading bar %percent"
+    //% percent.default=50
     //% percent.min=0 percent.max=100
     //% weight=89
-    export function tft_show_loading_bar(percent: number = 0) {
+    export function tft_show_loading_bar(percent: number) {
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
         basic.pause(20);
     };
