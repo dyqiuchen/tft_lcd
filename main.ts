@@ -108,7 +108,7 @@ namespace TFTLCD {
     //% weight=97
     export function tft_clear_screen() {
         verify_runtime();
-        i2cCommandSend(CMD_CLEAR_SCREEN, []);
+        i2cCommandSend(CMD_CLEAR_SCREEN, [0]);
         basic.pause(100);
     }
     //% block="set background color %color"
