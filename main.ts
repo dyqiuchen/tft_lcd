@@ -113,7 +113,7 @@ namespace TFTLCD {
     }
     //% block="set background color %color"
     //% color.shadow="colorNumberPicker"
-    //% color.default=1
+    //% color.defl=0
     //% weight=96
     export function tft_set_background_color(color : number) {
         verify_runtime();
@@ -129,6 +129,7 @@ namespace TFTLCD {
     }
     //% block="set draw pen color %color"
     //% color.shadow="colorNumberPicker"
+    //% color.defl=0xffffff
     //% weight=95
     export function tft_set_pen_color(color: number = 0) {
         verify_runtime();
@@ -171,13 +172,14 @@ namespace TFTLCD {
     };
     //% block="Clear the specified rows %num"
     //% num.min=1 num.max=8
+    //% num.defl=1
     //% weight=90
-    export function tft_clear_line(num: number = 1) {
+    export function tft_clear_line(num: number) {
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
         basic.pause(30);
     };
     //% block="Show loading bar %percent"
-    //% percent.default=50
+    //% percent.defl=50
     //% percent.min=0 percent.max=100
     //% weight=89
     export function tft_show_loading_bar(percent: number) {
