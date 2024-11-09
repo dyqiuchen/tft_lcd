@@ -67,7 +67,7 @@ namespace TFTLCD {
     //% weight=100
     export function tft_backlight_ctrl(cmd: TFTLCD_BLK_CMD) {
         verify_runtime();
-        i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == TFTLCD_BLK_CMD.Blk_open ? 0x01 : 0x00]);
+        i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == TFTLCD_BLK_CMD.BlkOpen ? 0x01 : 0x00]);
     }
     
     //% block="draw line from %x0,%y0 to %x1,%y1"
