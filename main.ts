@@ -16,12 +16,32 @@ namespace TFTLCD {
     const CMD_CLEAR_LINE = 0x71;
     const CMD_DRAW_PROGRESS = 0xA0;
 
-    export enum TFTLcdBlkCmd {
+    export enum BlkCmdEnum {
         //%block="open"
         BlkOpen,
         //%block="close"
         BlkClose,
     }
+    export enum LineNumEnum {
+        //% block="Line 1"
+        Line_1 = 1,
+        //% block="Line 2"
+        Line_2 = 2,
+        //% block="Line 3"
+        Line_3 = 3,
+        //% block="Line 4"
+        Line_4 = 4,
+        //% block="Line 5"
+        Line_5 = 5,
+        //% block="Line 6"
+        Line_6 = 6,
+        //% block="Line 7"
+        Line_7 = 7,
+        //% block="Line 8"
+        Line_8 = 8
+    }
+
+
 
     /**
      * 校准运行时间,防止屏还未初始化就调用函数
@@ -63,11 +83,11 @@ namespace TFTLCD {
      * 12. 显示进度条
      */
 
-    //% block="backlight set %TFTLcdBlkCmd"
+    //% block="backlight set %BlkCmdEnum"
     //% weight=100
-    export function tft_backlight_ctrl(cmd: TFTLcdBlkCmd = TFTLcdBlkCmd.BlkOpen) {
+    export function tft_backlight_ctrl(cmd: BlkCmdEnum = BlkCmdEnum.BlkOpen) {
         verify_runtime();
-        i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == TFTLcdBlkCmd.BlkOpen ? 0x01 : 0x00]);
+        i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == BlkCmdEnum.BlkOpen ? 0x01 : 0x00]);
     }
     
     //% block="draw line from %x0,%y0 to %x1,%y1"
@@ -131,7 +151,7 @@ namespace TFTLCD {
     //% color.shadow="colorNumberPicker"
     //% color.defl=0xffffff
     //% weight=95
-    export function tft_set_pen_color(color: number = 0) {
+    export function tft_set_pen_color(color: number) {
         verify_runtime();
         //color RGB888位转RGB565
         let param = (((color >> 16) & 0xff) >> 3) << 11 |
@@ -165,8 +185,9 @@ namespace TFTLCD {
     };
     //% block="Select the specified row %num"
     //% num.min=1 num.max=8
+    //% num.defl = LineNumEnum.Line_1
     //% weight=91
-    export function tft_select_line(num: number = 1) {
+    export function tft_select_line(num: LineNumEnum) {
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
         basic.pause(20);
     };
