@@ -129,7 +129,7 @@ namespace TFTLCD {
     //% block="set draw pen color %TFTLCD_COLOR"
     //% color.shadow="colorNumberPicker"
     //% weight=95
-    export function tft_set_pen_color(color: number = 0xffffff) {
+    export function tft_set_pen_color(color: number = 0) {
         verify_runtime();
         //color RGB888位转RGB565
         let param = (((color >> 16) & 0xff) >> 3) << 11 |
