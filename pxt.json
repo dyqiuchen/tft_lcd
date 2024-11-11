@@ -9,7 +9,7 @@
     "files": [
         "README.md",
         "main.ts",
-        "_locales/zh-CN/TFTLCD-strings.json",
+        "_locales/zh/TFTLCD-strings.json",
         "_locales/zh-TW/TFTLCD-strings.json"
     ],
     "testFiles": [
