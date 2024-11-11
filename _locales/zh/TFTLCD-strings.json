@@ -1,4 +1,5 @@
 {
   "TFTLCD.tftBacklightCtrl|block": "背光设置 %cmd",
+  "TFTLCD.tft_draw_line|block": "画直线 %xs %ys %xe %ye",
   "{id:category}TFTLCD": "TFTLCD"
 }

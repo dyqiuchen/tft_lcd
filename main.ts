@@ -74,7 +74,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == BlkCmdEnum.BlkOpen ? 0x01 : 0x00]);
     }
     
-    //% block="draw line from %x0,%y0 to %x1,%y1"
+    //% block="draw line from %xs,%ys to %xe,%ye"
     //% weight=99
     export function tft_draw_line(xs: number, ys: number, xe: number, ye: number) {
 
