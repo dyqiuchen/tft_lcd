@@ -67,25 +67,9 @@ namespace TFTLCD {
         pins.i2cWriteBuffer(St7789vAddr, buff);
     }
 
-    /**
-     * PS:运行时间少于500ms等待
-     * 1. 背光开关
-     * 2. 划线
-     * 3. 绘制矩形（实心、空心）
-     * 4. 绘制圆（不做积木块）
-     * 5. 清屏（完成功能后需要delay100ms）
-     * 6. 设置背景色
-     * 7. 绘制画笔色
-     * 8. 显示字符串
-     * 9. 显示数字
-     * 10. 换行；选择行（选择行如果存在字符，则选择覆盖）
-     * 11. 清除指定行
-     * 12. 显示进度条
-     */
-
     //% block="backlight set %BlkCmdEnum"
     //% weight=100
-    export function tft_backlight_ctrl(cmd: BlkCmdEnum = BlkCmdEnum.BlkOpen) {
+    export function tft_backlight_ctrl(cmd: BlkCmdEnum) {
         verify_runtime();
         i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == BlkCmdEnum.BlkOpen ? 0x01 : 0x00]);
     }
