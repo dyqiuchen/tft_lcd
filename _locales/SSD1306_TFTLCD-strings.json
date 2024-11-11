@@ -1,5 +1,5 @@
 {
-  "TFTLCD.clear|block": "clear TFTLCD display",
+  "TFTLCD.tftBacklightCtrl|block": "backlight set",
   "TFTLCD.drawLine|block": "draw line from:|x: $x0 y: $y0 to| x: $x1 y: $y1",
   "TFTLCD.drawLoading|block": "draw loading bar at $percent percent",
   "TFTLCD.drawRectangle|block": "draw rectangle from:|x: $x0 y: $y0 to| x: $x1 y: $y1",
