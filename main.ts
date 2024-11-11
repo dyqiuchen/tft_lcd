@@ -75,6 +75,10 @@ namespace TFTLCD {
     }
     
     //% block="draw line from %xs,%ys to %xe,%ye"
+    //% xs.defl = 0
+    //% ys.defl = 0
+    //% xe.defl = 20
+    //% ye.defl = 20
     //% weight=99
     export function tft_draw_line(xs: number, ys: number, xe: number, ye: number) {
 
