@@ -95,7 +95,7 @@ namespace TFTLCD {
         ]);
         basic.pause(20);
     }
-    //% block="draw rectange from %xs, %ys to %xe, %ye %fill"
+    //% block="draw rectange from|xs:%xs|ys:%ys to |xe:%xe|ye:%ye|fill:%fill"
     //% weight=98
     export function tft_draw_rect(xs: number, ys: number, xe: number, ye: number, fill: boolean) {
         verify_runtime();
