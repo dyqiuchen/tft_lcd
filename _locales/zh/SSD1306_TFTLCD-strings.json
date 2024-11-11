@@ -1,5 +1,5 @@
 {
-  "TFTLCD.tft_backlight_ctrl|block": "背光开关",
+  "TFTLCD.tftBacklightCtrl|block": "背光开关",
   "TFTLCD.drawLine|block": "画线条 起点:|x: $x0 y: $y0 终点| x: $x1 y: $y1",
   "TFTLCD.drawLoading|block": "显示进度条 $percent %",
   "TFTLCD.drawRectangle|block": "绘制矩形 起点:|x: $x0 y: $y0 终点| x: $x1 y: $y1",
