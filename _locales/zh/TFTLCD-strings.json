@@ -1,4 +1,5 @@
 {
+  "OLED.clear|block": "清除显示",
   "TFTLCD.tftBacklightCtrl|block": "背光设置 %cmd",
   "{id:category}TFTLCD": "TFTLCD"
 }

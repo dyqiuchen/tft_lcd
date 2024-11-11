@@ -1,7 +1,7 @@
 {
     "name": "TFTLCD",
-    "version": "0.0.0",
-    "description": "none",
+    "version": "0.0.1",
+    "description": "123123123",
     "license": "MIT",
     "dependencies": {
         "core": "*"
