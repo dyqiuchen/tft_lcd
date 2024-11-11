@@ -9,7 +9,7 @@
     "files": [
         "README.md",
         "main.ts",
-        "_locales/zh/SSD1306_TFTLCD-strings.json",
+        "_locales/zh-CN/SSD1306_TFTLCD-strings.json",
         "_locales/zh-TW/SSD1306_TFTLCD-strings.json"
     ],
     "testFiles": [
