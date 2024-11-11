@@ -1,4 +1,4 @@
 {
-  "TFTLCD.tftBacklightCtrl|block": "背光设置 %BlkCmdEnum",
+  "TFTLCD.tftBacklightCtrl|block": "背光设置 %cmd",
   "{id:category}TFTLCD": "TFTLCD"
 }
