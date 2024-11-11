@@ -3,7 +3,7 @@
   "TFTLCD.BlkCmdEnum.BlkClose|block": "关",
   "TFTLCD.tftBacklightCtrl|block": "背光设置 %cmd",
   "TFTLCD.tft_draw_line|block": "画线条起点|x:%xs|y:%ys|终点|x:%xe|y:%ye",
-  "TFTLCD.tft_draw_rect|block": "绘制矩形 起点|x:%xs|y:%ys|终点|x:%xe|y:%ye",
+  "TFTLCD.tft_draw_rect|block": "绘制矩形 起点|x:%xs|y:%ys|终点|x:%xe|y:%ye|是否填充:%fill",
   "TFTLCD.tft_clear_screen|block": "清除全屏显示",
   "TFTLCD.tft_set_background_color|block": "清除全屏显示",
   "TFTLCD.tft_show_loading_bar|block": "屏幕背景颜色: %color",
