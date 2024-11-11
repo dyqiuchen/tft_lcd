@@ -1,5 +1,5 @@
 {
-    "name": "SSD1306_TFTLCD",
+    "name": "TFTLCD",
     "version": "0.0.0",
     "description": "none",
     "license": "MIT",
@@ -9,8 +9,8 @@
     "files": [
         "README.md",
         "main.ts",
-        "_locales/zh-CN/SSD1306_TFTLCD-strings.json",
-        "_locales/zh-TW/SSD1306_TFTLCD-strings.json"
+        "_locales/zh-CN/TFTLCD-strings.json",
+        "_locales/zh-TW/TFTLCD-strings.json"
     ],
     "testFiles": [
         "test.ts"
