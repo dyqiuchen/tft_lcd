@@ -3,6 +3,13 @@
   "TFTLCD.BlkCmdEnum.BlkClose|block": "关",
   "TFTLCD.tftBacklightCtrl|block": "背光设置 %cmd",
   "TFTLCD.tft_draw_line|block": "画线条起点|x:%xs|y:%ys|终点|x:%xe|y:%ye",
-  "TFTLCD.tft_show_loading_bar|block": "显示进度条 %percent",
+  "TFTLCD.tft_draw_rect|block": "绘制矩形 起点|x:%xs|y:%ys|终点|x:%xe|y:%ye",
+  "TFTLCD.tft_clear_screen|block": "清除全屏显示",
+  "TFTLCD.tft_set_background_color|block": "清除全屏显示",
+  "TFTLCD.tft_show_loading_bar|block": "屏幕背景颜色: %color",
+  "TFTLCD.tft_set_pen_color|block": "画笔颜色: %color",
+  "TFTLCD.tft_show_string|block": "显示字符串 %str",
+  "TFTLCD.tft_show_num|block": "显示字数字 %num",
+  "TFTLCD.tft_new_line|block": "下一行",
   "{id:category}TFTLCD": "TFTLCD"
 }
