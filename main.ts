@@ -67,7 +67,7 @@ namespace TFTLCD {
         pins.i2cWriteBuffer(St7789vAddr, buff);
     }
 
-    //% block="tftBacklightCtrl set %BlkCmdEnum"
+    //% block="tftBacklightCtrl set %cmd"
     //% weight=100
     export function tftBacklightCtrl(cmd: BlkCmdEnum) {
         verify_runtime();
