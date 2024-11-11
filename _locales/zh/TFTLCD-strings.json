@@ -1,7 +1,7 @@
 {
   "TFTLCD.BlkCmdEnum.BlkOpen|block": "开",
   "TFTLCD.BlkCmdEnum.BlkClose|block": "关",
-  "TFTLCD.tftBacklightCtrl|block": "背光设置 %cmd",
+  "TFTLCD.tftBacklightCtrl|block": "屏幕 %cmd",
   "TFTLCD.tft_draw_line|block": "画线条起点|x:%xs|y:%ys|终点|x:%xe|y:%ye",
   "TFTLCD.tft_draw_rect|block": "绘制矩形 起点|x:%xs|y:%ys|终点|x:%xe|y:%ye|是否填充:%fill",
   "TFTLCD.tft_clear_screen|block": "清除全屏显示",
