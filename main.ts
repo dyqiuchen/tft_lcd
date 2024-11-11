@@ -96,6 +96,11 @@ namespace TFTLCD {
         basic.pause(20);
     }
     //% block="draw rectange from|xs:%xs|ys:%ys to |xe:%xe|ye:%ye|fill:%fill"
+    //% xs.defl=0
+    //% ys.defl=0
+    //% xe.defl=20
+    //% ye.defl=20
+    //% fill.defl=false
     //% weight=98
     export function tft_draw_rect(xs: number, ys: number, xe: number, ye: number, fill: boolean) {
         verify_runtime();
