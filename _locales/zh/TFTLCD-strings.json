@@ -1,5 +1,4 @@
 {
-  "OLED.clear|block": "清除显示",
-  "TFTLCD.tftBacklightCtrl|block": "背光设置 %cmd",
+  "TFTLCD.tftBacklightCtrl|block": "背光设置 %BlkCmdEnum",
   "{id:category}TFTLCD": "TFTLCD"
 }
