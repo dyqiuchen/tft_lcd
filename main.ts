@@ -3,7 +3,7 @@ namespace TFTLCD {
     /*****************************************************************************************************
      * I2C正式地址0x3D
      ****************************************************************************************************/
-    const St7789vAddr = 0x11;
+    const TFT_I2C_ADDR = 0x11;
 
     const CMD_SET_BACKLIGHT = 0x40;
     const CMD_DRAW_LINE = 0X10;
@@ -16,6 +16,7 @@ namespace TFTLCD {
     const CMD_CHANGE_LINE = 0x31;
     const CMD_CLEAR_LINE = 0x71;
     const CMD_DRAW_PROGRESS = 0xA0;
+    const CMD_IS_BUSY = 0xB0;
 
     export enum BlkCmdEnum {
         //%block="open"
@@ -48,9 +49,8 @@ namespace TFTLCD {
      * 校准运行时间,防止屏还未初始化就调用函数
      */
     function verify_runtime() {
-        while (input.runningTime() < 500) {
-            basic.pause(10);
-        }
+        while(pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE));
+        
     }
 
     /******************************************************************************************************
@@ -65,7 +65,7 @@ namespace TFTLCD {
         for (let i = 0; i < params.length; i++) {
             buff[i + 4] = params[i];
         }
-        pins.i2cWriteBuffer(St7789vAddr, buff);
+        pins.i2cWriteBuffer(TFT_I2C_ADDR, buff);
     }
 
     //% block="backlight set %cmd"
@@ -94,7 +94,6 @@ namespace TFTLCD {
             ye >> 8 & 0xff,
             ye & 0xff
         ]);
-        basic.pause(20);
     }
     //% block="draw rectange from|xs:%xs|ys:%ys to |xe:%xe|ye:%ye|fill:%fill"
     //% xs.defl=0
@@ -116,14 +115,12 @@ namespace TFTLCD {
             ye >> 8 & 0xff,
             ye & 0xff
         ]);
-        basic.pause(20);
     }
     //% block="set background clear screen"
     //% weight=97
     export function tft_clear_screen() {
         verify_runtime();
         i2cCommandSend(CMD_CLEAR_SCREEN, [0]);
-        basic.pause(100);
     }
     //% block="set background color %color"
     //% color.shadow="colorNumberPicker"
@@ -161,7 +158,6 @@ namespace TFTLCD {
     export function tft_show_string(str: string) {
         for (let i = 0; i < str.length; i++) {
             i2cCommandSend(CMD_DRAW_STRING, [str.charCodeAt(i)]);
-            basic.pause(10);
         }
     }
 
@@ -176,13 +172,11 @@ namespace TFTLCD {
     //% weight=91
     export function tft_new_line() {
         i2cCommandSend(CMD_CHANGE_LINE, [0]);
-        basic.pause(20);
     };
     //% block="select the specified line %num and write string %str"
     //% weight=92
     export function tft_select_line_write_string(num: LineNumEnum, str: string) {
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
-        basic.pause(20);
         tft_show_string(str);
     };
 
@@ -190,13 +184,11 @@ namespace TFTLCD {
     //% weight=90
     export function tft_select_line_write_num(num: LineNumEnum, wnum: number) {
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
-        basic.pause(20);
         tft_show_num(wnum);
     };
     
     export function tft_clear_line(num: number) {
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
-        basic.pause(30);
     };
     //% block="Show loading bar %percent"
     //% percent.defl=50
@@ -204,7 +196,6 @@ namespace TFTLCD {
     //% weight=89
     export function tft_show_loading_bar(percent: number) {
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
-        basic.pause(20);
     };
 
     //% block="draw circle from %x,%y with radius %r fill %fill"
@@ -220,6 +211,5 @@ namespace TFTLCD {
             r >> 8 & 0xff,
             r & 0xff
         ])
-        basic.pause(20);
     }
 }
