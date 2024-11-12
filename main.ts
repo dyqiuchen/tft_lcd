@@ -173,7 +173,7 @@ namespace TFTLCD {
         tft_show_string(str);
     }
     //% block="Line breaks"
-    //% weight=92
+    //% weight=91
     export function tft_new_line() {
         i2cCommandSend(CMD_CHANGE_LINE, [0]);
         basic.pause(20);
@@ -187,7 +187,7 @@ namespace TFTLCD {
     };
 
     //% block="select the specified line %num and write num %wnum"
-    //% weight=91
+    //% weight=90
     export function tft_select_line_write_num(num: LineNumEnum, wnum: number) {
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
         basic.pause(20);
@@ -207,7 +207,8 @@ namespace TFTLCD {
         basic.pause(20);
     };
 
-
+    //% block="draw circle from %x,%y with radius %r fill %fill"
+    //% weight=98
     export function tft_draw_circle(x: number, y: number, r: number, fill: boolean) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_CIRCLE, [
