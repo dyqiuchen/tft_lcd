@@ -1,9 +1,10 @@
 //% color=#008C8C icon="\uf26c"
 namespace TFTLCD {
-
+    /*****************************************************************************************************
+     * I2C正式地址0x3D
+     ****************************************************************************************************/
     const St7789vAddr = 0x11;
 
-    // CMD list
     const CMD_SET_BACKLIGHT = 0x40;
     const CMD_DRAW_LINE = 0X10;
     const CMD_DRAW_RECT = 0x50;
@@ -67,7 +68,7 @@ namespace TFTLCD {
         pins.i2cWriteBuffer(St7789vAddr, buff);
     }
 
-    //% block="tftBacklightCtrl set %cmd"
+    //% block="backlight set %cmd"
     //% weight=100
     export function tftBacklightCtrl(cmd: BlkCmdEnum) {
         verify_runtime();
@@ -165,8 +166,9 @@ namespace TFTLCD {
     }
 
     //% block="show number %num"
+    //% num.defl=20
     //% weight=93
-    export function tft_show_num(num: number = 20) {
+    export function tft_show_num(num: number) {
         let str = "" + num;
         tft_show_string(str);
     }
@@ -176,18 +178,22 @@ namespace TFTLCD {
         i2cCommandSend(CMD_CHANGE_LINE, [0]);
         basic.pause(20);
     };
-    //% block="Select the specified row %num"
-    //% num.min=1 num.max=8
-    //% num.defl = LineNumEnum.Line_1
-    //% weight=91
-    export function tft_select_line(num: LineNumEnum) {
+    //% block="select the specified line %num and write string %str"
+    //% weight=92
+    export function tft_select_line_write_string(num: LineNumEnum, str: string) {
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
         basic.pause(20);
+        tft_show_string(str);
     };
-    //% block="Clear the specified rows %num"
-    //% num.min=1 num.max=8
-    //% num.defl=1
-    //% weight=90
+
+    //% block="select the specified line %num and write num %wnum"
+    //% weight=91
+    export function tft_select_line_write_num(num: LineNumEnum, wnum: number) {
+        i2cCommandSend(CMD_CHANGE_LINE, [num]);
+        basic.pause(20);
+        tft_show_num(wnum);
+    };
+    
     export function tft_clear_line(num: number) {
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
         basic.pause(30);
