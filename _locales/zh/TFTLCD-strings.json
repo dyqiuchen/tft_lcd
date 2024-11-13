@@ -21,5 +21,6 @@
   "TFTLCD.tft_new_line|block": "新行",
   "TFTLCD.tft_select_line_write_string|block": "TFT 第 %num 行显示文本 %str",
   "TFTLCD.tft_select_line_write_num|block": "TFT 第 %num 行显示数字 %wnum",
+  "TFTLCD.tft_draw_circle|block": "绘制圆,圆心|x %x | y %y | 半径 r %r 是否填充 %fill",
   "{id:category}TFTLCD": "TFTLCD"
 }
