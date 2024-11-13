@@ -157,6 +157,7 @@ namespace TFTLCD {
     //% weight=94
     export function tft_show_string(str: string) {
         for (let i = 0; i < str.length; i++) {
+            verify_runtime();
             i2cCommandSend(CMD_DRAW_STRING, [str.charCodeAt(i)]);
         }
     }
@@ -171,11 +172,13 @@ namespace TFTLCD {
     //% block="Line breaks"
     //% weight=91
     export function tft_new_line() {
+        verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [0]);
     };
     //% block="select the specified line %num and write string %str"
     //% weight=92
     export function tft_select_line_write_string(num: LineNumEnum, str: string) {
+        verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
         tft_show_string(str);
     };
@@ -183,11 +186,13 @@ namespace TFTLCD {
     //% block="select the specified line %num and write num %wnum"
     //% weight=90
     export function tft_select_line_write_num(num: LineNumEnum, wnum: number) {
+        verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
         tft_show_num(wnum);
     };
     
     export function tft_clear_line(num: number) {
+        verify_runtime();
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
     };
     //% block="Show loading bar %percent"
@@ -195,6 +200,7 @@ namespace TFTLCD {
     //% percent.min=0 percent.max=100
     //% weight=89
     export function tft_show_loading_bar(percent: number) {
+        verify_runtime();
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
     };
 
