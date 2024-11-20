@@ -186,6 +186,13 @@ namespace TFTLCD {
         tft_show_string(str);
     };
 
+    //% block="select the specified line %num clear"
+    //% weight=93
+    export function tft_select_line_clear(num: LineNumEnum) {
+        verify_runtime();
+        tft_select_line_write_string(num, "");
+    };
+
     //% block="select the specified line %num and write num %wnum"
     //% weight=90
     export function tft_select_line_write_num(num: LineNumEnum, wnum: number) {
