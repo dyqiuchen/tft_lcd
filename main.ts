@@ -156,10 +156,13 @@ namespace TFTLCD {
     //% block="show string %str"
     //% weight=94
     export function tft_show_string(str: string) {
+        let arr = [];
         for (let i = 0; i < str.length; i++) {
             verify_runtime();
-            i2cCommandSend(CMD_DRAW_STRING, [str.charCodeAt(i)]);
+            arr.push(str.charCodeAt(i));
         }
+        arr.push(0);
+        i2cCommandSend(CMD_DRAW_STRING, arr);
     }
 
     //% block="show number %num"
@@ -209,13 +212,13 @@ namespace TFTLCD {
     export function tft_draw_circle(x: number, y: number, r: number, fill: boolean) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_CIRCLE, [
-            fill ? 0x01 : 0x00,
             x >> 8 & 0xff,
             x & 0xff,
             y >> 8 & 0xff,
             y & 0xff,
             r >> 8 & 0xff,
-            r & 0xff
+            r & 0xff,
+            fill ? 0x01 : 0x00
         ])
     }
 }
