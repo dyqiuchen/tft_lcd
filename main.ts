@@ -237,13 +237,10 @@ namespace TFTLCD {
     export function tft_draw_circular_loader(color: number) {
         verify_runtime();
         //color RGB888位转RGB565
-        let param = (((color >> 16) & 0xff) >> 3) << 11 |
-            (((color >> 8) & 0xff) >> 2) << 5 |
-            ((color & 0xff) >> 3);
-
         i2cCommandSend(CMD_DRAW_CIRCULAR_LOADER, [
-            param >> 8 & 0xff,
-            param & 0xff
+            color>>16 & 0xff,
+            color>>8 & 0xff,
+            color & 0xff
         ]);
     }
 }
