@@ -49,8 +49,8 @@ namespace TFTLCD {
      * 校准运行时间,防止屏还未初始化就调用函数
      */
     function verify_runtime() {
-        while(!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE));
-        
+        //while(!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE));
+
     }
 
     /******************************************************************************************************
@@ -74,7 +74,7 @@ namespace TFTLCD {
         verify_runtime();
         i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == BlkCmdEnum.BlkOpen ? 0x01 : 0x00]);
     }
-    
+
     //% block="draw line from %xs,%ys to %xe,%ye"
     //% xs.defl=0
     //% ys.defl=0
@@ -105,7 +105,6 @@ namespace TFTLCD {
     export function tft_draw_rect(xs: number, ys: number, xe: number, ye: number, fill: boolean) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_RECT, [
-            fill ? 0x01 : 0x00,
             xs >> 8 & 0xff,
             xs & 0xff,
             ys >> 8 & 0xff,
@@ -113,7 +112,8 @@ namespace TFTLCD {
             xe >> 8 & 0xff,
             xe & 0xff,
             ye >> 8 & 0xff,
-            ye & 0xff
+            ye & 0xff,
+            fill ? 0x01 : 0x00
         ]);
     }
     //% block="set background clear screen"
@@ -126,7 +126,7 @@ namespace TFTLCD {
     //% color.shadow="colorNumberPicker"
     //% color.defl=0x000000
     //% weight=96
-    export function tft_set_background_color(color : number) {
+    export function tft_set_background_color(color: number) {
         verify_runtime();
         //color RGB888位转RGB565
         let param = (((color >> 16) & 0xff) >> 3) << 11 |
@@ -190,7 +190,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
         tft_show_num(wnum);
     };
-    
+
     export function tft_clear_line(num: number) {
         verify_runtime();
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
