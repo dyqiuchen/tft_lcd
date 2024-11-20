@@ -23,5 +23,6 @@
   "TFTLCD.tft_select_line_clear|block": "清除 TFT 第 %num 行",
   "TFTLCD.tft_select_line_write_num|block": "TFT 第 %num 行显示数字 %wnum",
   "TFTLCD.tft_draw_circle|block": "绘制圆,圆心|x %x | y %y | 半径 r %r 是否填充 %fill",
+  "TFTLCD.tft_draw_circular_loader|block": "绘制一个弧形加载器 颜色为 %color",
   "{id:category}TFTLCD": "TFTLCD"
 }

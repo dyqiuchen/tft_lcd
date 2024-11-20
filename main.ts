@@ -16,6 +16,7 @@ namespace TFTLCD {
     const CMD_CHANGE_LINE = 0x31;
     const CMD_CLEAR_LINE = 0x71;
     const CMD_DRAW_PROGRESS = 0xA0;
+    const CMD_DRAW_CIRCULAR_LOADER = 0xA1;
     const CMD_IS_BUSY = 0xB0;
 
     export enum BlkCmdEnum {
@@ -227,5 +228,22 @@ namespace TFTLCD {
             r & 0xff,
             fill ? 0x01 : 0x00
         ])
+    }
+
+    //% block="set TFT draw a circular loadercolor %color"
+    //% color.shadow="colorNumberPicker"
+    //% color.defl=0x000000
+    //% weight=96
+    export function tft_draw_circular_loader(color: number) {
+        verify_runtime();
+        //color RGB888位转RGB565
+        let param = (((color >> 16) & 0xff) >> 3) << 11 |
+            (((color >> 8) & 0xff) >> 2) << 5 |
+            ((color & 0xff) >> 3);
+
+        i2cCommandSend(CMD_DRAW_CIRCULAR_LOADER, [
+            param >> 8 & 0xff,
+            param & 0xff
+        ]);
     }
 }
