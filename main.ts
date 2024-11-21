@@ -19,6 +19,7 @@ namespace TFTLCD {
     const CMD_DRAW_CIRCULAR_LOADER = 0xA1;
     const CMD_IS_BUSY = 0xB0;
     const CMD_DRAW_HISTOGRAM = 0xC0;
+    const CMD_DRAW_HISTOGRAM_DATA = 0xC1;
 
     export enum BlkCmdEnum {
         //%block="open"
@@ -250,5 +251,30 @@ namespace TFTLCD {
             column & 0xff,
             group & 0xff
         ])
+    } 
+
+    //% block="write histogram data: set %column column name is %name| data1 =  %num1 | data2 = %num2| data3 = %num3| data4 = %num4| data5 = %num5"
+    //% expandableArgumentMode="enabled"
+    //% weight=98
+    export function tft_draw_histogram_data(column: number, name: string, num1: number, num2: number, num3: number, num4: number, num5: number) {
+        verify_runtime();
+        let arr = [];
+        arr.push(column & 0xff);
+        arr.push(num1 >> 8 & 0xff);
+        arr.push(num1 & 0xff);
+        arr.push(num2 >> 8 & 0xff);
+        arr.push(num2 & 0xff);
+        arr.push(num3 >> 8 & 0xff);
+        arr.push(num3 & 0xff);
+        arr.push(num4 >> 8 & 0xff);
+        arr.push(num4 & 0xff);
+        arr.push(num5 >> 8 & 0xff);
+        arr.push(num5 & 0xff);
+        for (let i = 0; i < name.length; i++) {
+            verify_runtime();
+            arr.push(name.charCodeAt(i));
+        }
+        arr.push(0);
+        i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
     }
 }
