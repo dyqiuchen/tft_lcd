@@ -129,14 +129,10 @@ namespace TFTLCD {
     //% weight=96
     export function tft_set_background_color(color: number) {
         verify_runtime();
-        //color RGB888位转RGB565
-        let param = (((color >> 16) & 0xff) >> 3) << 11 |
-            (((color >> 8) & 0xff) >> 2) << 5 |
-            ((color & 0xff) >> 3);
-
         i2cCommandSend(CMD_SET_BACKGROUND_COLOR, [
-            param >> 8 & 0xff,
-            param & 0xff
+            (color >> 16) & 0xff,
+            (color >> 8) & 0xff,
+            color & 0xff
         ]);
     }
     //% block="set draw pen color %color"
@@ -145,13 +141,10 @@ namespace TFTLCD {
     //% weight=95
     export function tft_set_pen_color(color: number) {
         verify_runtime();
-        //color RGB888位转RGB565
-        let param = (((color >> 16) & 0xff) >> 3) << 11 |
-            (((color >> 8) & 0xff) >> 2) << 5 |
-            ((color & 0xff) >> 3);
         i2cCommandSend(CMD_SET_PEN_COLOR, [
-            param >> 8 & 0xff,
-            param & 0xff
+            (color >> 16) & 0xff,
+            (color >> 8) & 0xff,
+            color & 0xff
         ]);
     }
     //% block="show string %str"
