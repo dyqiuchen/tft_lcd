@@ -253,7 +253,7 @@ namespace TFTLCD {
         ])
     } 
 
-    //% block="write histogram data: set %column column name is %name| data1 =  %num1 | data2 = %num2| data3 = %num3| data4 = %num4| data5 = %num5"
+    //% block="write histogram data: set %column column name is %name| data1 =  %num1 || data2 = %num2| data3 = %num3| data4 = %num4| data5 = %num5"
     //% expandableArgumentMode="enabled"
     //% weight=98
     export function tft_draw_histogram_data(column: number, name: string, num1: number, num2: number, num3: number, num4: number, num5: number) {
