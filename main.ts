@@ -241,6 +241,16 @@ namespace TFTLCD {
 
     //% block="draw histogram: | set Y min %ymin and Y max %ymax, |set column %column and group %group"
     //% weight=98
+    //% ymin.defl=0
+    //% ymin.min=-32767 ymin.max=32767
+    //% ymax.defl=0
+    //% ymax.min=-32767 ymax.max=32767
+    //% column.defl=1
+    //% column.min=1 column.max=10
+    //% column.defl=1
+    //% column.min=1 column.max=10
+    //% group.defl=1
+    //% group.min=1 group.max=5
     export function tft_draw_histogram(ymin: number, ymax: number, column: number, group:number){
         verify_runtime();
         i2cCommandSend(CMD_DRAW_HISTOGRAM, [
@@ -257,7 +267,7 @@ namespace TFTLCD {
     //% expandableArgumentMode="enabled"
     //% weight=98
     //% column.defl=1
-    //% column.min=0 column.max=100
+    //% column.min=1 column.max=10
     export function tft_draw_histogram_data(column: number, name: string, num1: number, num2: number = null, num3: number = null, num4: number = null, num5: number = null) {
         verify_runtime();
         let arr = [];
