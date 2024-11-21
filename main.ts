@@ -18,6 +18,7 @@ namespace TFTLCD {
     const CMD_DRAW_PROGRESS = 0xA0;
     const CMD_DRAW_CIRCULAR_LOADER = 0xA1;
     const CMD_IS_BUSY = 0xB0;
+    const CMD_DRAW_HISTOGRAM = 0xC0;
 
     export enum BlkCmdEnum {
         //%block="open"
@@ -235,5 +236,19 @@ namespace TFTLCD {
             color>>8 & 0xff,
             color & 0xff
         ]);
+    }
+
+    //% block="draw histogram: | set Y min %ymin and Y max %ymax, |set column %column and group %group"
+    //% weight=98
+    export function tft_draw_histogram(ymin: number, ymax: number, column: number, group:number){
+        verify_runtime();
+        i2cCommandSend(CMD_DRAW_HISTOGRAM, [
+            ymin >> 8 & 0xff,
+            ymin & 0xff,
+            ymax >> 8 & 0xff,
+            ymax & 0xff,
+            column & 0xff,
+            group & 0xff
+        ])
     }
 }
