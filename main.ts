@@ -47,6 +47,13 @@ namespace TFTLCD {
         Line_8 = 8
     }
 
+    export enum DrawType{
+        //% block="Histogram"
+        Histogram = 0,
+        //% block="Linechart"
+        Linechart = 1
+    }
+
 
 
     /**
@@ -240,7 +247,7 @@ namespace TFTLCD {
         ]);
     }
 
-    //% block="draw histogram: | set Y min %ymin and Y max %ymax, |set column %column and group %group"
+    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column and group %group"
     //% weight=98
     //% ymin.defl=0
     //% ymin.min=-32767 ymin.max=32767
@@ -252,7 +259,7 @@ namespace TFTLCD {
     //% column.min=1 column.max=10
     //% group.defl=1
     //% group.min=1 group.max=5
-    export function tft_draw_histogram(ymin: number, ymax: number, column: number, group: number) {
+    export function tft_draw_histogram(ymin: number, ymax: number, column: number, group: number, drawtype: DrawType) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_HISTOGRAM, [
             ymin >> 8 & 0xff,
@@ -260,7 +267,8 @@ namespace TFTLCD {
             ymax >> 8 & 0xff,
             ymax & 0xff,
             column & 0xff,
-            group & 0xff
+            group & 0xff,
+            drawtype & 0xff
         ])
     }
 
