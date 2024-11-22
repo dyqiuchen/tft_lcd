@@ -20,6 +20,7 @@ namespace TFTLCD {
     const CMD_IS_BUSY = 0xB0;
     const CMD_DRAW_HISTOGRAM = 0xC0;
     const CMD_DRAW_HISTOGRAM_DATA = 0xC1;
+    const CMD_DRAW_PIE_CHART = 0xC2;
 
     export enum BlkCmdEnum {
         //%block="open"
@@ -233,8 +234,8 @@ namespace TFTLCD {
         verify_runtime();
         //color RGB888位转RGB565
         i2cCommandSend(CMD_DRAW_CIRCULAR_LOADER, [
-            color>>16 & 0xff,
-            color>>8 & 0xff,
+            color >> 16 & 0xff,
+            color >> 8 & 0xff,
             color & 0xff
         ]);
     }
@@ -251,7 +252,7 @@ namespace TFTLCD {
     //% column.min=1 column.max=10
     //% group.defl=1
     //% group.min=1 group.max=5
-    export function tft_draw_histogram(ymin: number, ymax: number, column: number, group:number){
+    export function tft_draw_histogram(ymin: number, ymax: number, column: number, group: number) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_HISTOGRAM, [
             ymin >> 8 & 0xff,
@@ -261,7 +262,7 @@ namespace TFTLCD {
             column & 0xff,
             group & 0xff
         ])
-    } 
+    }
 
     //% block="write histogram data: |set %column column name is %name| data1 = %num1|| data2 = %num2| data3 = %num3| data4 = %num4| data5 = %num5"
     //% expandableArgumentMode="enabled"
@@ -288,5 +289,42 @@ namespace TFTLCD {
         }
         arr.push(0);
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
+    }
+
+    //% block="draw pie chart: |Set the %piecnt of pie|pie1 data is %num1 and the name is %name1|| pie2 data is %num2 and the name is %name2|pie3 data is % num3 and the name is % name3 | pie4 data is % num4 and the name is % name4 | pie5 data is % num5 and the name is %name5| pie6 data is % num6 and the name is % name6 | pie7 data is % num7 and the name is % name7 | pie8 data is % num8 and the name is % name8 | pie9 data is % num9 and the name is % name9 | pie10 data is %num10 and the name is % name10"
+    //% expandableArgumentMode="enabled"
+    //% weight=98
+    //% piecnt.defl=1
+    //% piecnt.min=1 piecnt.max=10
+    export function draw_pie_chart(piecnt: number, num1: number, name1: string,
+                                                    num2: number = null, name2: string = null,
+                                                    num3: number = null, name3: string = null,
+                                                    num4: number = null, name4: string = null,
+                                                    num5: number = null, name5: string = null,
+                                                    num6: number = null, name6: string = null,
+                                                    num7: number = null, name7: string = null,
+                                                    num8: number = null, name8: string = null,
+                                                    num9: number = null, name9: string = null,
+                                                    num10: number = null, name10: string = null
+                                                    ) {
+        verify_runtime();
+        let arr = [];
+        arr.push(column & 0xff);
+        arr.push(num1 >> 8 & 0xff);
+        arr.push(num1 & 0xff);
+        arr.push(num2 >> 8 & 0xff);
+        arr.push(num2 & 0xff);
+        arr.push(num3 >> 8 & 0xff);
+        arr.push(num3 & 0xff);
+        arr.push(num4 >> 8 & 0xff);
+        arr.push(num4 & 0xff);
+        arr.push(num5 >> 8 & 0xff);
+        arr.push(num5 & 0xff);
+        for (let i = 0; i < name1.length; i++) {
+            verify_runtime();
+            arr.push(name1.charCodeAt(i));
+        }
+        arr.push(0);
+        i2cCommandSend(CMD_DRAW_PIE_CHART, arr)
     }
 }
