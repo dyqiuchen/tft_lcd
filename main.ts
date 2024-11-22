@@ -259,7 +259,7 @@ namespace TFTLCD {
     //% column.min=1 column.max=10
     //% group.defl=1
     //% group.min=1 group.max=5
-    export function tft_draw_histogram(ymin: number, ymax: number, column: number, group: number, drawtype: DrawType) {
+    export function tft_draw_histogram(drawtype: DrawType,ymin: number, ymax: number, column: number, group: number) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_HISTOGRAM, [
             ymin >> 8 & 0xff,
