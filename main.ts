@@ -291,7 +291,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
     }
 
-    //% block="draw pie chart: |Set the %partCnt of pie|part1 %value1 and name1 %name1|| part2 %value2 and name2 %name2|part3 %value3 and name3 %name3 | part4 %value4 and name4 %name4 | part5 %value5 and name5 %name5| part6 %value6 and name6 %name6 | part7 %value7 and name7 %name7 | part8 %value8 and name8 %name8 | part9 %value9 and name9 % name9 | pie10 %value10 and name10 %name10"
+    //% block="draw pie chart: |Set the %partCnt of pie|part1 %value1 and name1 %name1|| part2 %value2 and name2 %name2|part3 %value3 and name3 %name3 | part4 %value4 and name4 %name4 | part5 %value5 and name5 %name5| part6 %value6 and name6 %name6 | part7 %value7 and name7 %name7 | part8 %value8 and name8 %name8 | part9 %value9 and name9 %name9 | pie10 %value10 and name10 %name10"
     //% expandableArgumentMode="enabled"
     //% weight=98
     //% partCnt.defl=1
