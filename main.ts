@@ -335,8 +335,8 @@ namespace TFTLCD {
         arr.push(value4 >> 8 & 0xff);
         arr.push(value4 & 0xff);
         arr.push(name4.length)
-        for (let i = 0; i < name5.length; i++) {
-            arr.push(name6.charCodeAt(i));
+        for (let i = 0; i < name4.length; i++) {
+            arr.push(name4.charCodeAt(i));
         }
 
         arr.push(value5 >> 8 & 0xff);
