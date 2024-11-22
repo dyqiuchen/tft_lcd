@@ -291,7 +291,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
     }
 
-    //% block="draw pie chart: |Set the %piecnt of pie|pie1 data is %num1 and the name is %name1|| pie2 data is %num2 and the name is %name2|pie3 data is % num3 and the name is % name3 | pie4 data is % num4 and the name is % name4 | pie5 data is % num5 and the name is %name5| pie6 data is % num6 and the name is % name6 | pie7 data is % num7 and the name is % name7 | pie8 data is % num8 and the name is % name8 | pie9 data is % num9 and the name is % name9 | pie10 data is %num10 and the name is % name10"
+    //% block="draw pie chart: |Set the %piecnt of pie|pie1 %num1 and the name %name1|| pie2 %num2 and the name %name2|pie3 %num3 and the name %name3 | pie4 %num4 and the name %name4 | pie5 %num5 and the name %name5| pie6 %num6 and the name % name6 | pie7 %num7 and the name %name7 | pie8 %num8 and the name %name8 | pie9 %num9 and the name % name9 | pie10 %num10 and the name %name10"
     //% expandableArgumentMode="enabled"
     //% weight=98
     //% piecnt.defl=1
@@ -309,7 +309,7 @@ namespace TFTLCD {
                                                     ) {
         verify_runtime();
         let arr = [];
-        arr.push(column & 0xff);
+        arr.push(piecnt & 0xff);
         arr.push(num1 >> 8 & 0xff);
         arr.push(num1 & 0xff);
         arr.push(num2 >> 8 & 0xff);
