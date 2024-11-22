@@ -320,56 +320,56 @@ namespace TFTLCD {
 
         arr.push(value2 >> 8 & 0xff);
         arr.push(value2 & 0xff);
-        arr.push(name1.length)
+        arr.push(name2.length)
         for (let i = 0; i < name2.length; i++) {
             arr.push(name2.charCodeAt(i));
         }
 
         arr.push(value3 >> 8 & 0xff);
         arr.push(value3 & 0xff);
-        arr.push(name1.length)
+        arr.push(name3.length)
         for (let i = 0; i < name3.length; i++) {
             arr.push(name3.charCodeAt(i));
         }
 
         arr.push(value4 >> 8 & 0xff);
         arr.push(value4 & 0xff);
-        arr.push(name1.length)
+        arr.push(name4.length)
         for (let i = 0; i < name5.length; i++) {
             arr.push(name6.charCodeAt(i));
         }
 
         arr.push(value5 >> 8 & 0xff);
         arr.push(value5 & 0xff);
-        arr.push(name1.length)
+        arr.push(name5.length)
         for (let i = 0; i < name5.length; i++) {
             arr.push(name5.charCodeAt(i));
         }
 
         arr.push(value6 >> 8 & 0xff);
         arr.push(value6 & 0xff);
-        arr.push(name1.length)
+        arr.push(name6.length)
         for (let i = 0; i < name6.length; i++) {
             arr.push(name6.charCodeAt(i));
         }
 
         arr.push(value7 >> 8 & 0xff);
         arr.push(value7 & 0xff);
-        arr.push(name1.length)
+        arr.push(name7.length)
         for (let i = 0; i < name7.length; i++) {
             arr.push(name7.charCodeAt(i));
         }
 
         arr.push(value8 >> 8 & 0xff);
         arr.push(value8 & 0xff);
-        arr.push(name1.length)
+        arr.push(name9.length)
         for (let i = 0; i < name8.length; i++) {
             arr.push(name8.charCodeAt(i));
         }
 
         arr.push(value9 >> 8 & 0xff);
         arr.push(value9 & 0xff);
-        arr.push(name1.length)
+        arr.push(name10.length)
         for (let i = 0; i < name9.length; i++) {
             arr.push(name9.charCodeAt(i));
 
