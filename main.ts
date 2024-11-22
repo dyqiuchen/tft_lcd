@@ -291,35 +291,35 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
     }
 
-    //% block="draw pie chart: |Set the %piecnt of pie|pie1 %num1 and name1 %name1|| pie2 %num2 and name2 %name2||pie3 %num3 and name3 %name3 | pie4 %num4 and name4 %name4 | pie5 %num5 and name5 %name5| pie6 %num6 and name6 %name6 | pie7 %num7 and name7 %name7 | pie8 %num8 and name8 %name8 | pie9 %num9 and name9 % name9 | pie10 %num10 and name10 %name10"
+    //% block="draw pie chart: |Set the %partCnt of pie|part1 %value1 and name1 %name1|| part2 %value2 and name2 %name2|part3 %value3 and name3 %name3 | part4 %value4 and name4 %name4 | part5 %value5 and name5 %name5| part6 %value6 and name6 %name6 | part7 %value7 and name7 %name7 | part8 %value8 and name8 %name8 | part9 %value9 and name9 % name9 | pie10 %value10 and name10 %name10"
     //% expandableArgumentMode="enabled"
     //% weight=98
-    //% piecnt.defl=1
-    //% piecnt.min=1 piecnt.max=10
-    export function draw_pie_chart(piecnt: number, num1: number, name1: string,
-                                                    num2: number = null, name2: string = null,
-                                                    num3: number = null, name3: string = null,
-                                                    num4: number = null, name4: string = null,
-                                                    num5: number = null, name5: string = null,
-                                                    num6: number = null, name6: string = null,
-                                                    num7: number = null, name7: string = null,
-                                                    num8: number = null, name8: string = null,
-                                                    num9: number = null, name9: string = null,
-                                                    num10: number = null, name10: string = null
+    //% partCnt.defl=1
+    //% partCnt.min=1 partCnt.max=10
+    export function draw_pie_chart(partCnt: number, value1: number, name1: string,
+                                                    value2: number = null, name2: string = null,
+                                                    value3: number = null, name3: string = null,
+                                                    value4: number = null, name4: string = null,
+                                                    value5: number = null, name5: string = null,
+                                                    value6: number = null, name6: string = null,
+                                                    value7: number = null, name7: string = null,
+                                                    value8: number = null, name8: string = null,
+                                                    value9: number = null, name9: string = null,
+                                                    value10: number = null, name10: string = null
                                                     ) {
         verify_runtime();
         let arr = [];
-        arr.push(piecnt & 0xff);
-        arr.push(num1 >> 8 & 0xff);
-        arr.push(num1 & 0xff);
-        arr.push(num2 >> 8 & 0xff);
-        arr.push(num2 & 0xff);
-        arr.push(num3 >> 8 & 0xff);
-        arr.push(num3 & 0xff);
-        arr.push(num4 >> 8 & 0xff);
-        arr.push(num4 & 0xff);
-        arr.push(num5 >> 8 & 0xff);
-        arr.push(num5 & 0xff);
+        arr.push(partCnt & 0xff);
+        arr.push(value1 >> 8 & 0xff);
+        arr.push(value1 & 0xff);
+        arr.push(value2 >> 8 & 0xff);
+        arr.push(value2 & 0xff);
+        arr.push(value3 >> 8 & 0xff);
+        arr.push(value3 & 0xff);
+        arr.push(value4 >> 8 & 0xff);
+        arr.push(value4 & 0xff);
+        arr.push(value5 >> 8 & 0xff);
+        arr.push(value5 & 0xff);
         for (let i = 0; i < name1.length; i++) {
             verify_runtime();
             arr.push(name1.charCodeAt(i));
