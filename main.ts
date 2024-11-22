@@ -369,7 +369,7 @@ namespace TFTLCD {
 
         arr.push(value9 >> 8 & 0xff);
         arr.push(value9 & 0xff);
-        arr.push(name10.length)
+        arr.push(name9.length)
         for (let i = 0; i < name9.length; i++) {
             arr.push(name9.charCodeAt(i));
 
@@ -377,7 +377,7 @@ namespace TFTLCD {
 
         arr.push(value10 >> 8 & 0xff);
         arr.push(value10 & 0xff);
-        arr.push(name1.length)
+        arr.push(name10.length)
         for (let i = 0; i < name10.length; i++) {
             arr.push(name10.charCodeAt(i));
         }
