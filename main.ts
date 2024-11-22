@@ -310,20 +310,79 @@ namespace TFTLCD {
         verify_runtime();
         let arr = [];
         arr.push(partCnt & 0xff);
+
         arr.push(value1 >> 8 & 0xff);
         arr.push(value1 & 0xff);
-        arr.push(value2 >> 8 & 0xff);
-        arr.push(value2 & 0xff);
-        arr.push(value3 >> 8 & 0xff);
-        arr.push(value3 & 0xff);
-        arr.push(value4 >> 8 & 0xff);
-        arr.push(value4 & 0xff);
-        arr.push(value5 >> 8 & 0xff);
-        arr.push(value5 & 0xff);
         for (let i = 0; i < name1.length; i++) {
             verify_runtime();
             arr.push(name1.charCodeAt(i));
         }
+
+        arr.push(value2 >> 8 & 0xff);
+        arr.push(value2 & 0xff);
+        for (let i = 0; i < name2.length; i++) {
+            verify_runtime();
+            arr.push(name2.charCodeAt(i));
+        }
+
+        arr.push(value3 >> 8 & 0xff);
+        arr.push(value3 & 0xff);
+        for (let i = 0; i < name3.length; i++) {
+            verify_runtime();
+            arr.push(name3.charCodeAt(i));
+        }
+
+        arr.push(value4 >> 8 & 0xff);
+        arr.push(value4 & 0xff);
+        for (let i = 0; i < name5.length; i++) {
+            verify_runtime();
+            arr.push(name6.charCodeAt(i));
+        }
+
+        arr.push(value5 >> 8 & 0xff);
+        arr.push(value5 & 0xff);
+        for (let i = 0; i < name5.length; i++) {
+            verify_runtime();
+            arr.push(name5.charCodeAt(i));
+        }
+
+        arr.push(value6 >> 8 & 0xff);
+        arr.push(value6 & 0xff);
+        for (let i = 0; i < name6.length; i++) {
+            verify_runtime();
+            arr.push(name6.charCodeAt(i));
+        }
+
+        arr.push(value7 >> 8 & 0xff);
+        arr.push(value7 & 0xff);
+        for (let i = 0; i < name7.length; i++) {
+            verify_runtime();
+            arr.push(name7.charCodeAt(i));
+
+        }
+
+        arr.push(value8 >> 8 & 0xff);
+        arr.push(value8 & 0xff);
+        for (let i = 0; i < name8.length; i++) {
+            verify_runtime();
+            arr.push(name8.charCodeAt(i));
+        }
+
+        arr.push(value9 >> 8 & 0xff);
+        arr.push(value9 & 0xff);
+        for (let i = 0; i < name9.length; i++) {
+            verify_runtime();
+            arr.push(name9.charCodeAt(i));
+
+        }
+
+        arr.push(value10 >> 8 & 0xff);
+        arr.push(value10 & 0xff);
+        for (let i = 0; i < name10.length; i++) {
+            verify_runtime();
+            arr.push(name10.charCodeAt(i));
+        }
+
         arr.push(0);
         i2cCommandSend(CMD_DRAW_PIE_CHART, arr)
     }
