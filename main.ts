@@ -47,7 +47,7 @@ namespace TFTLCD {
         Line_8 = 8
     }
 
-    export enum DrawType{
+    export enum DrawType {
         //% block="Histogram"
         Histogram = 0,
         //% block="Linechart"
@@ -259,7 +259,7 @@ namespace TFTLCD {
     //% column.min=1 column.max=10
     //% group.defl=1
     //% group.min=1 group.max=5
-    export function tft_draw_histogram(drawtype: DrawType,ymin: number, ymax: number, column: number, group: number) {
+    export function tft_draw_histogram(drawtype: DrawType, ymin: number, ymax: number, column: number, group: number) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_HISTOGRAM, [
             ymin >> 8 & 0xff,
@@ -299,98 +299,41 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
     }
 
-    //% block="draw pie chart: |Set the %partCnt of pie|part1 %value1 and name1 %name1|| part2 %value2 and name2 %name2|part3 %value3 and name3 %name3|part4 %value4 and name4 %name4|part5 %value5 and name5 %name5| part6 %value6 and name6 %name6|part7 %value7 and name7 %name7|part8 %value8 and name8 %name8|part9 %value9 and name9 %name9|pie10 %value10 and name10 %name10"
+    //% block="draw pie chart:|part1 %value1 and name1 %name1|| part2 %value2 and name2 %name2|part3 %value3 and name3 %name3|part4 %value4 and name4 %name4|part5 %value5 and name5 %name5| part6 %value6 and name6 %name6|part7 %value7 and name7 %name7|part8 %value8 and name8 %name8|part9 %value9 and name9 %name9|pie10 %value10 and name10 %name10"
     //% expandableArgumentMode="enabled"
     //% weight=98
     //% partCnt.defl=1
     //% partCnt.min=1 partCnt.max=10
-    export function draw_pie_chart(partCnt: number, value1: number, name1: string,
-                                                    value2: number = null, name2: string = null,
-                                                    value3: number = null, name3: string = null,
-                                                    value4: number = null, name4: string = null,
-                                                    value5: number = null, name5: string = null,
-                                                    value6: number = null, name6: string = null,
-                                                    value7: number = null, name7: string = null,
-                                                    value8: number = null, name8: string = null,
-                                                    value9: number = null, name9: string = null,
-                                                    value10: number = null, name10: string = null
-                                                    ) {
+    export function draw_pie_chart(value1: number, name1: string,
+        value2: number = null, name2: string = null,
+        value3: number = null, name3: string = null,
+        value4: number = null, name4: string = null,
+        value5: number = null, name5: string = null,
+        value6: number = null, name6: string = null,
+        value7: number = null, name7: string = null,
+        value8: number = null, name8: string = null,
+        value9: number = null, name9: string = null,
+        value10: number = null, name10: string = null
+    ) {
         verify_runtime();
-        let arr = [];
-        arr.push(partCnt & 0xff);
+        let part_cnt = 0;
+        let arr = [0];
+        let values = [value1, value2, value3, value4, value5, value6, value7, value8, value9, value10];
+        let names = [name1, name2, name3, name4, name5, name6, name7, name8, name9, name10];
 
-        arr.push(value1 >> 8 & 0xff);
-        arr.push(value1 & 0xff);
-        arr.push(name1.length)
-        for (let i = 0; i < name1.length; i++) {
-            arr.push(name1.charCodeAt(i));
+        for (let i = 0; i < 10; i++) {
+            if (values[i] == null || names[i] == null) {
+                break;
+            }
+            arr.push(values[i] >> 8 & 0xff);
+            arr.push(values[i] & 0xff);
+            for (let i = 0; i < names[i].length; i++) {
+                arr.push(names[i].charCodeAt(i));
+            }
+            arr.push(0)
+            part_cnt++;
         }
-
-        arr.push(value2 >> 8 & 0xff);
-        arr.push(value2 & 0xff);
-        arr.push(name2.length)
-        for (let i = 0; i < name2.length; i++) {
-            arr.push(name2.charCodeAt(i));
-        }
-
-        arr.push(value3 >> 8 & 0xff);
-        arr.push(value3 & 0xff);
-        arr.push(name3.length)
-        for (let i = 0; i < name3.length; i++) {
-            arr.push(name3.charCodeAt(i));
-        }
-
-        arr.push(value4 >> 8 & 0xff);
-        arr.push(value4 & 0xff);
-        arr.push(name4.length)
-        for (let i = 0; i < name4.length; i++) {
-            arr.push(name4.charCodeAt(i));
-        }
-
-        arr.push(value5 >> 8 & 0xff);
-        arr.push(value5 & 0xff);
-        arr.push(name5.length)
-        for (let i = 0; i < name5.length; i++) {
-            arr.push(name5.charCodeAt(i));
-        }
-
-        arr.push(value6 >> 8 & 0xff);
-        arr.push(value6 & 0xff);
-        arr.push(name6.length)
-        for (let i = 0; i < name6.length; i++) {
-            arr.push(name6.charCodeAt(i));
-        }
-
-        arr.push(value7 >> 8 & 0xff);
-        arr.push(value7 & 0xff);
-        arr.push(name7.length)
-        for (let i = 0; i < name7.length; i++) {
-            arr.push(name7.charCodeAt(i));
-        }
-
-        arr.push(value8 >> 8 & 0xff);
-        arr.push(value8 & 0xff);
-        arr.push(name9.length)
-        for (let i = 0; i < name8.length; i++) {
-            arr.push(name8.charCodeAt(i));
-        }
-
-        arr.push(value9 >> 8 & 0xff);
-        arr.push(value9 & 0xff);
-        arr.push(name9.length)
-        for (let i = 0; i < name9.length; i++) {
-            arr.push(name9.charCodeAt(i));
-
-        }
-
-        arr.push(value10 >> 8 & 0xff);
-        arr.push(value10 & 0xff);
-        arr.push(name10.length)
-        for (let i = 0; i < name10.length; i++) {
-            arr.push(name10.charCodeAt(i));
-        }
-
-        arr.push(0);
+        arr[0] = part_cnt;
         i2cCommandSend(CMD_DRAW_PIE_CHART, arr)
     }
 }

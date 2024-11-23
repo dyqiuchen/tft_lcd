@@ -26,6 +26,6 @@
   "TFTLCD.tft_draw_circular_loader|block": "绘制一个弧形加载器 颜色为 %color",
   "TFTLCD.tft_draw_histogram|block": "初始化加载一个 %drawtype|设置数据域最小值 %ymin 最大值 %ymax|设置列数 %column 组数 %group",
   "TFTLCD.tft_draw_histogram_data|block": "设置图表第 %column 列|设置标签 %name| 数据1 = %num1|| 数据2 = %num2| 数据3 = %num3| 数据4 = %num4| 数据5 = %num5",
-  "TFTLCD.draw_pie_chart|block": "加载一个饼状图:|设置饼块个数 %partCnt|饼块1 数据 %value1 标签 %name1|| 饼块2 数据 %value2 标签 %name2|饼块3 数据 %value3 标签 %name3|饼块4 数据 %value4 标签 %name4|饼块5 数据 %value5 标签 %name5| 饼块6 数据 %value6 标签 %name6|饼块7 数据 %value7 标签 %name7|饼块8 数据 %value8 标签 %name8|饼块9 数据 %value9 标签 %name9|饼块10 数据 %value10 标签 %name10",
+  "TFTLCD.draw_pie_chart|block": "加载一个饼状图:|饼块1 数据 %value1 标签 %name1|| 饼块2 数据 %value2 标签 %name2|饼块3 数据 %value3 标签 %name3|饼块4 数据 %value4 标签 %name4|饼块5 数据 %value5 标签 %name5| 饼块6 数据 %value6 标签 %name6|饼块7 数据 %value7 标签 %name7|饼块8 数据 %value8 标签 %name8|饼块9 数据 %value9 标签 %name9|饼块10 数据 %value10 标签 %name10",
   "{id:category}TFTLCD": "TFTLCD"
 }
