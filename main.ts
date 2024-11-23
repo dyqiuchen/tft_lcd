@@ -298,42 +298,56 @@ namespace TFTLCD {
         arr.push(0);
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
     }
-    export class Test{
-        public name:string;
-        public value:number;
+
+    export class PartInfo {
+        public value: number;
+        public name: string;
+        constructor(value: number, name: string) {
+            this.name = name;
+            this.value = value;
+        }
     }
-    //% block="draw pie chart:|test %test.name %test.value|part1 %value1 and name1 %name1|| part2 %value2 and name2 %name2|part3 %value3 and name3 %name3|part4 %value4 and name4 %name4|part5 %value5 and name5 %name5| part6 %value6 and name6 %name6|part7 %value7 and name7 %name7|part8 %value8 and name8 %name8|part9 %value9 and name9 %name9|pie10 %value10 and name10 %name10"
+    
+    //% blockHidden=1
+    //% blockId=createPartInfo block="value %value label %name"
+    export function createPartInfo(value: number, name: string): PartInfo{
+        return new PartInfo(value, name);
+    }
+
+    //% blockId=pie block="draw pie chart: |part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
     //% expandableArgumentMode="enabled"
     //% weight=98
-    //% partCnt.defl=1
-    //% partCnt.min=1 partCnt.max=10
     export function draw_pie_chart(
-        test:Test,
-        value1: number, name1: string,
-        value2: number = null, name2: string = null,
-        value3: number = null, name3: string = null,
-        value4: number = null, name4: string = null,
-        value5: number = null, name5: string = null,
-        value6: number = null, name6: string = null,
-        value7: number = null, name7: string = null,
-        value8: number = null, name8: string = null,
-        value9: number = null, name9: string = null,
-        value10: number = null, name10: string = null
+        part1: PartInfo = null,
+        part2: PartInfo = null,
+        part3: PartInfo = null,
+        part4: PartInfo = null,
+        part5: PartInfo = null,
+        part6: PartInfo = null,
+        part7: PartInfo = null,
+        part8: PartInfo = null,
+        part9: PartInfo = null,
+        part10: PartInfo = null,
     ) {
         verify_runtime();
         let part_cnt = 0;
         let arr = [0];
-        let values = [value1, value2, value3, value4, value5, value6, value7, value8, value9, value10];
-        let names = [name1, name2, name3, name4, name5, name6, name7, name8, name9, name10];
+        let part_arr = [part1, part2, part3, part4, part5, part6, part7, part8, part9, part10];
 
         for (let i = 0; i < 10; i++) {
-            if (values[i] == null || names[i] == null) {
+            if (part_arr[i] == null) {
                 break;
             }
-            arr.push(values[i] >> 8 & 0xff);
-            arr.push(values[i] & 0xff);
-            for (let i = 0; i < names[i].length; i++) {
-                arr.push(names[i].charCodeAt(i));
+            arr.push(part_arr[i].value >> 8 & 0xff);
+            arr.push(part_arr[i].value & 0xff);
+            let len = part_arr[i].name.length;
+            for (let i = 0; i < (len > 6 ? 3 : len); i++) {
+                arr.push(part_arr[i].name.charCodeAt(i));
+            }
+            if (len > 6){
+                arr.push(".".charCodeAt(0))
+                arr.push(".".charCodeAt(0))
+                arr.push(".".charCodeAt(0))
             }
             arr.push(0)
             part_cnt++;
