@@ -86,47 +86,6 @@ namespace TFTLCD {
         i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == BlkCmdEnum.BlkOpen ? 0x01 : 0x00]);
     }
 
-    //% block="draw line from %xs,%ys to %xe,%ye"
-    //% xs.defl=0
-    //% ys.defl=0
-    //% xe.defl=20
-    //% ye.defl=20
-    //% weight=99
-    export function tft_draw_line(xs: number, ys: number, xe: number, ye: number) {
-
-        verify_runtime();
-        i2cCommandSend(CMD_DRAW_LINE, [
-            xs >> 8 & 0xff,
-            xs & 0xff,
-            ys >> 8 & 0xff,
-            ys & 0xff,
-            xe >> 8 & 0xff,
-            xe & 0xff,
-            ye >> 8 & 0xff,
-            ye & 0xff
-        ]);
-    }
-    //% block="draw rectange from|xs:%xs|ys:%ys to |xe:%xe|ye:%ye|fill:%fill"
-    //% xs.defl=0
-    //% ys.defl=0
-    //% xe.defl=20
-    //% ye.defl=20
-    //% fill.defl=false
-    //% weight=98
-    export function tft_draw_rect(xs: number, ys: number, xe: number, ye: number, fill: boolean) {
-        verify_runtime();
-        i2cCommandSend(CMD_DRAW_RECT, [
-            xs >> 8 & 0xff,
-            xs & 0xff,
-            ys >> 8 & 0xff,
-            ys & 0xff,
-            xe >> 8 & 0xff,
-            xe & 0xff,
-            ye >> 8 & 0xff,
-            ye & 0xff,
-            fill ? 0x01 : 0x00
-        ]);
-    }
     //% block="set background clear screen"
     //% weight=97
     export function tft_clear_screen() {
@@ -209,17 +168,52 @@ namespace TFTLCD {
         verify_runtime();
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
     };
-    //% block="Show loading bar %percent"
-    //% percent.defl=50
-    //% percent.min=0 percent.max=100
-    //% weight=89
-    export function tft_show_loading_bar(percent: number) {
+
+    //% block="draw line from %xs,%ys to %xe,%ye"
+    //% xs.defl=0
+    //% ys.defl=0
+    //% xe.defl=20
+    //% ye.defl=20
+    //% weight=55
+    export function tft_draw_line(xs: number, ys: number, xe: number, ye: number) {
+
         verify_runtime();
-        i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
-    };
+        i2cCommandSend(CMD_DRAW_LINE, [
+            xs >> 8 & 0xff,
+            xs & 0xff,
+            ys >> 8 & 0xff,
+            ys & 0xff,
+            xe >> 8 & 0xff,
+            xe & 0xff,
+            ye >> 8 & 0xff,
+            ye & 0xff
+        ]);
+    }
+
+    //% block="draw rectange from|xs:%xs|ys:%ys to |xe:%xe|ye:%ye|fill:%fill"
+    //% xs.defl=0
+    //% ys.defl=0
+    //% xe.defl=20
+    //% ye.defl=20
+    //% fill.defl=false
+    //% weight=50
+    export function tft_draw_rect(xs: number, ys: number, xe: number, ye: number, fill: boolean) {
+        verify_runtime();
+        i2cCommandSend(CMD_DRAW_RECT, [
+            xs >> 8 & 0xff,
+            xs & 0xff,
+            ys >> 8 & 0xff,
+            ys & 0xff,
+            xe >> 8 & 0xff,
+            xe & 0xff,
+            ye >> 8 & 0xff,
+            ye & 0xff,
+            fill ? 0x01 : 0x00
+        ]);
+    }
 
     //% block="draw circle from %x,%y with radius %r fill %fill"
-    //% weight=98
+    //% weight=45
     export function tft_draw_circle(x: number, y: number, r: number, fill: boolean) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_CIRCLE, [
@@ -236,7 +230,7 @@ namespace TFTLCD {
     //% block="set TFT draw a circular loadercolor %color"
     //% color.shadow="colorNumberPicker"
     //% color.defl=0x000000
-    //% weight=96
+    //% weight=40
     export function tft_draw_circular_loader(color: number) {
         verify_runtime();
         //color RGB888位转RGB565
@@ -247,8 +241,17 @@ namespace TFTLCD {
         ]);
     }
 
+    //% block="Show loading bar %percent"
+    //% percent.defl=50
+    //% percent.min=0 percent.max=100
+    //% weight=30
+    export function tft_show_loading_bar(percent: number) {
+        verify_runtime();
+        i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
+    };
+
     //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column and group %group"
-    //% weight=98
+    //% weight=21
     //% ymin.defl=0
     //% ymin.min=-32767 ymin.max=32767
     //% ymax.defl=0
@@ -274,7 +277,7 @@ namespace TFTLCD {
 
     //% block="write histogram data: |set %column column name is %name| data1 = %num1|| data2 = %num2| data3 = %num3| data4 = %num4| data5 = %num5"
     //% expandableArgumentMode="enabled"
-    //% weight=98
+    //% weight=20
     //% column.defl=1
     //% column.min=1 column.max=10
     export function tft_draw_histogram_data(column: number, name: string, num1: number, num2: number = null, num3: number = null, num4: number = null, num5: number = null) {
@@ -316,7 +319,7 @@ namespace TFTLCD {
 
     //% blockId=pie block="draw pie chart: |part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
     //% expandableArgumentMode="enabled"
-    //% weight=98
+    //% weight=10
     export function draw_pie_chart(
         part1: PartInfo = null,
         part2: PartInfo = null,
