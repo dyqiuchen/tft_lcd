@@ -85,7 +85,7 @@ namespace TFTLCD {
 
     //% blockHidden=1
     //% blockId=LineNumEnum block="%value"
-    export function selectLineNumEnum(value: LineNumEnum): number{
+    export function selectLineNumEnum(value: LineNumEnum): number {
         return value;
     }
     //% blockHidden=1
@@ -319,30 +319,43 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
     };
 
-    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column=ChartNumColmun and group %group=ChartNumGroup"
+    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column=ChartNumColmun and group1 color %color1||group2 color %color2|group3 color %color3|group4 color %color4|group5 color %color5|"
+    //% expandableArgumentMode="enabled"
     //% weight=21
     //% ymin.defl=0
     //% ymin.min=-32767 ymin.max=32767
     //% ymax.defl=0
     //% ymax.min=-32767 ymax.max=32767
-    //% column.defl=1
-    //% column.min=1 column.max=10
-    //% column.defl=1
-    //% column.min=1 column.max=10
-    //% group.defl=1
-    //% group.min=1 group.max=5
-    //% group="chart"
-    export function tft_draw_chart(drawtype: DrawType, ymin: number, ymax: number, column: number, group: number) {
+    //% color1.shadow="colorNumberPicker"
+    //% color2.shadow="colorNumberPicker"
+    //% color3.shadow="colorNumberPicker"
+    //% color4.shadow="colorNumberPicker"
+    //% color5.shadow="colorNumberPicker"
+    export function tft_draw_chart(drawtype: DrawType, ymin: number, ymax: number, column: number, color1: number, color2: number = null, color3: number = null, color4: number = null, color5: number = null) {
         verify_runtime();
-        i2cCommandSend(CMD_DRAW_HISTOGRAM, [
+        let arr = [
             ymin >> 8 & 0xff,
             ymin & 0xff,
             ymax >> 8 & 0xff,
             ymax & 0xff,
             column & 0xff,
-            group & 0xff,
+            0,
             drawtype & 0xff
-        ])
+        ];
+        let buf = [color1, color2, color3, color4, color5];
+        let group_cnt = 0;
+        for (let i = 0; i < 5; i++) {
+            group_cnt = i;
+            if (buf[i] == null) {
+                break;
+            }
+            arr.push(buf[i] >> 16 & 0xff)
+            arr.push(buf[i] >> 8 & 0xff)
+            arr.push(buf[i] & 0xff)
+        }
+        arr[5] = group_cnt;
+
+        i2cCommandSend(CMD_DRAW_HISTOGRAM, arr)
     }
 
     //% inlineInputMode=external
@@ -382,10 +395,10 @@ namespace TFTLCD {
             this.value = value;
         }
     }
-    
+
     //% blockHidden=1
     //% blockId=createPartInfo block="value %value label %name"
-    export function createPartInfo(value: number, name: string): PartInfo{
+    export function createPartInfo(value: number, name: string): PartInfo {
         return new PartInfo(value, name);
     }
 
@@ -420,7 +433,7 @@ namespace TFTLCD {
             for (let j = 0; j < (len > 6 ? 3 : len); j++) {
                 arr.push(part_arr[i].name.charCodeAt(j));
             }
-            if (len > 6){
+            if (len > 6) {
                 arr.push(".".charCodeAt(0))
                 arr.push(".".charCodeAt(0))
                 arr.push(".".charCodeAt(0))
