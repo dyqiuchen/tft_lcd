@@ -341,8 +341,8 @@ namespace TFTLCD {
             arr.push(part_arr[i].value >> 8 & 0xff);
             arr.push(part_arr[i].value & 0xff);
             let len = part_arr[i].name.length;
-            for (let i = 0; i < (len > 6 ? 3 : len); i++) {
-                arr.push(part_arr[i].name.charCodeAt(i));
+            for (let j = 0; j < (len > 6 ? 3 : len); j++) {
+                arr.push(part_arr[i].name.charCodeAt(j));
             }
             if (len > 6){
                 arr.push(".".charCodeAt(0))
