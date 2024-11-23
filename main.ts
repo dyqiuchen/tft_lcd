@@ -345,13 +345,13 @@ namespace TFTLCD {
         let buf = [color1, color2, color3, color4, color5];
         let group_cnt = 0;
         for (let i = 0; i < 5; i++) {
-            group_cnt = i;
             if (buf[i] == null) {
                 break;
             }
             arr.push(buf[i] >> 16 & 0xff)
             arr.push(buf[i] >> 8 & 0xff)
             arr.push(buf[i] & 0xff)
+            group_cnt++;
         }
         arr[5] = group_cnt;
 
@@ -390,16 +390,19 @@ namespace TFTLCD {
     export class PartInfo {
         public value: number;
         public name: string;
-        constructor(value: number, name: string) {
+        public color:number;
+        constructor(value: number, name: string,color:number) {
             this.name = name;
             this.value = value;
+            this.color = color;
         }
     }
 
     //% blockHidden=1
-    //% blockId=createPartInfo block="value %value label %name"
-    export function createPartInfo(value: number, name: string): PartInfo {
-        return new PartInfo(value, name);
+    //% blockId=createPartInfo block="value %value label %name color %color"
+    //% color.shadow="colorNumberPicker"
+    export function createPartInfo(value: number, name: string,color:number): PartInfo {
+        return new PartInfo(value, name,color);
     }
 
     //% blockId=pie block="draw pie chart: |part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
@@ -439,9 +442,13 @@ namespace TFTLCD {
                 arr.push(".".charCodeAt(0))
             }
             arr.push(0)
+            arr.push(part_arr[i].color >> 16 & 0xff)
+            arr.push(part_arr[i].color >> 8 & 0xff)
+            arr.push(part_arr[i].color & 0xff)
             part_cnt++;
         }
         arr[0] = part_cnt;
+        
         i2cCommandSend(CMD_DRAW_PIE_CHART, arr)
     }
 }

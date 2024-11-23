@@ -18,7 +18,7 @@
   "TFTLCD.tft_draw_circular_loader|block": "绘制一个弧形加载器 颜色为 %color",
   "TFTLCD.tft_draw_chart|block": "绘制一个 %drawtype|设置数据域最小值 %ymin 最大值 %ymax|设置列数 %column=ChartNumColmun 第1组颜色为 %color1||第2组颜色为 %color2|第3组颜色为 %color3|第4组颜色为 %color4|第5组颜色为 %color5",
   "TFTLCD.tft_draw_chart_data|block": "设置图表第%column=ChartNumColmun列标签名为%name|数据1 = %num1||数据2 = %num2|数据3 = %num3|数据4 = %num4|数据5 = %num5",
-  "TFTLCD.createPartInfo|block": "数据 %value 标签 %name",
+  "TFTLCD.createPartInfo|block": "数据 %value 标签 %name 颜色 %color",
   "TFTLCD.draw_pie_chart|block": "绘制一个饼状图:|饼块1 %part1=createPartInfo|| 饼块2 %part2=createPartInfo|饼块3 %part3=createPartInfo|饼块4 %part4=createPartInfo|饼块5 %part5=createPartInfo| 饼块6 %part6=createPartInfo|饼块7 %part7=createPartInfo|饼块8 %part8=createPartInfo|饼块9 %part9=createPartInfo|饼块10 %part10=createPartInfo",
   "{id:category}TFTLCD": "TFTLCD",
   "{id:group}Basic": "基础",
