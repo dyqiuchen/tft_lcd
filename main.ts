@@ -298,13 +298,18 @@ namespace TFTLCD {
         arr.push(0);
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
     }
-
-    //% block="draw pie chart:|part1 %value1 and name1 %name1|| part2 %value2 and name2 %name2|part3 %value3 and name3 %name3|part4 %value4 and name4 %name4|part5 %value5 and name5 %name5| part6 %value6 and name6 %name6|part7 %value7 and name7 %name7|part8 %value8 and name8 %name8|part9 %value9 and name9 %name9|pie10 %value10 and name10 %name10"
+    export class Test{
+        public name:string;
+        public value:number;
+    }
+    //% block="draw pie chart:|test %test.name %test.value|part1 %value1 and name1 %name1|| part2 %value2 and name2 %name2|part3 %value3 and name3 %name3|part4 %value4 and name4 %name4|part5 %value5 and name5 %name5| part6 %value6 and name6 %name6|part7 %value7 and name7 %name7|part8 %value8 and name8 %name8|part9 %value9 and name9 %name9|pie10 %value10 and name10 %name10"
     //% expandableArgumentMode="enabled"
     //% weight=98
     //% partCnt.defl=1
     //% partCnt.min=1 partCnt.max=10
-    export function draw_pie_chart(value1: number, name1: string,
+    export function draw_pie_chart(
+        test:Test,
+        value1: number, name1: string,
         value2: number = null, name2: string = null,
         value3: number = null, name3: string = null,
         value4: number = null, name4: string = null,
