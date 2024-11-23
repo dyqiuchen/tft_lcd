@@ -29,22 +29,74 @@ namespace TFTLCD {
         BlkClose,
     }
     export enum LineNumEnum {
-        //% block="Line 1"
+        //% block="1"
         Line_1 = 1,
-        //% block="Line 2"
+        //% block="2"
         Line_2 = 2,
-        //% block="Line 3"
+        //% block="3"
         Line_3 = 3,
-        //% block="Line 4"
+        //% block="4"
         Line_4 = 4,
-        //% block="Line 5"
+        //% block="5"
         Line_5 = 5,
-        //% block="Line 6"
+        //% block="6"
         Line_6 = 6,
-        //% block="Line 7"
+        //% block="7"
         Line_7 = 7,
-        //% block="Line 8"
+        //% block="8"
         Line_8 = 8
+    }
+
+    export enum ChartNumColmun {
+        //% block="1"
+        Chart1 = 1,
+        //% block="2"
+        Chart2 = 2,
+        //% block="3"
+        Chart3 = 3,
+        //% block="4"
+        Chart4 = 4,
+        //% block="5"
+        Chart5 = 5,
+        //% block="6"
+        Chart6 = 6,
+        //% block="7"
+        Chart7 = 7,
+        //% block="8"
+        Chart8 = 8,
+        //% block="9"
+        Chart9 = 9,
+        //% block="10"
+        Chart10 = 10
+    }
+
+    export enum ChartNumGroup {
+        //% block="1"
+        Group1 = 1,
+        //% block="2"
+        Group2 = 2,
+        //% block="3"
+        Group3 = 3,
+        //% block="4"
+        Group4 = 4,
+        //% block="5"
+        Chart5 = 5
+    }
+
+    //% blockHidden=1
+    //% blockId=LineNumEnum block="%value"
+    export function selectLineNumEnum(value: LineNumEnum): number{
+        return value;
+    }
+    //% blockHidden=1
+    //% blockId=ChartNumColmun block="%value"
+    export function selectChartNumColmun(value: ChartNumColmun): number {
+        return value;
+    }
+    //% blockHidden=1
+    //% blockId=ChartNumGroup block="%value"
+    export function selectChartNumGroup(value: ChartNumGroup): number {
+        return value;
     }
 
     export enum DrawType {
@@ -89,7 +141,7 @@ namespace TFTLCD {
 
     //% block="set background clear screen"
     //% weight=97
-    //% group="Basic control"
+    //% group="Basic"
     export function tft_clear_screen() {
         verify_runtime();
         i2cCommandSend(CMD_CLEAR_SCREEN, [0]);
@@ -148,27 +200,29 @@ namespace TFTLCD {
         verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [0]);
     };
-    //% block="select the specified line %num and write string %str"
+
+
+    //% block="select the specified line %num=LineNumEnum and write string %str"
     //% weight=92
     //% group="Basic"
-    export function tft_select_line_write_string(num: LineNumEnum, str: string) {
+    export function tft_select_line_write_string(num: number, str: string) {
         verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
         tft_show_string(str);
     };
 
-    //% block="select the specified line %num clear"
+    //% block="select the specified line %num=LineNumEnum clear"
     //% weight=93
     //% group="Basic"
-    export function tft_select_line_clear(num: LineNumEnum) {
+    export function tft_select_line_clear(num: number) {
         verify_runtime();
         tft_select_line_write_string(num, "");
     };
 
-    //% block="select the specified line %num and write num %wnum"
+    //% block="select the specified line %num=LineNumEnum and write num %wnum"
     //% weight=90
     //% group="Basic"
-    export function tft_select_line_write_num(num: LineNumEnum, wnum: number) {
+    export function tft_select_line_write_num(num: number, wnum: number) {
         verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
         tft_show_num(wnum);
@@ -265,7 +319,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
     };
 
-    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column and group %group"
+    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column=ChartNumColmun and group %group=ChartNumGroup"
     //% weight=21
     //% ymin.defl=0
     //% ymin.min=-32767 ymin.max=32767
@@ -278,7 +332,7 @@ namespace TFTLCD {
     //% group.defl=1
     //% group.min=1 group.max=5
     //% group="chart"
-    export function tft_draw_histogram(drawtype: DrawType, ymin: number, ymax: number, column: number, group: number) {
+    export function tft_draw_chart(drawtype: DrawType, ymin: number, ymax: number, column: number, group: number) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_HISTOGRAM, [
             ymin >> 8 & 0xff,
@@ -291,13 +345,14 @@ namespace TFTLCD {
         ])
     }
 
-    //% block="write histogram data: |set %column column name is %name| data1 = %num1|| data2 = %num2| data3 = %num3| data4 = %num4| data5 = %num5"
+    //% inlineInputMode=external
+    //% block="write chart data: |set column %column=ChartNumColmun name as %name|data1 = %num1||data2 = %num2|data3 = %num3|data4 = %num4|data5 = %num5"
     //% expandableArgumentMode="enabled"
     //% weight=20
     //% column.defl=1
     //% column.min=1 column.max=10
     //% group="chart"
-    export function tft_draw_histogram_data(column: number, name: string, num1: number, num2: number = null, num3: number = null, num4: number = null, num5: number = null) {
+    export function tft_draw_chart_data(column: number, name: string, num1: number, num2: number = null, num3: number = null, num4: number = null, num5: number = null) {
         verify_runtime();
         let arr = [];
         arr.push(column & 0xff);
