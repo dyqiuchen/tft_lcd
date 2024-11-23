@@ -81,6 +81,7 @@ namespace TFTLCD {
 
     //% block="backlight set %cmd"
     //% weight=100
+    //% group="Basic"
     export function tftBacklightCtrl(cmd: BlkCmdEnum) {
         verify_runtime();
         i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == BlkCmdEnum.BlkOpen ? 0x01 : 0x00]);
@@ -88,6 +89,7 @@ namespace TFTLCD {
 
     //% block="set background clear screen"
     //% weight=97
+    //% group="Basic control"
     export function tft_clear_screen() {
         verify_runtime();
         i2cCommandSend(CMD_CLEAR_SCREEN, [0]);
@@ -95,6 +97,7 @@ namespace TFTLCD {
     //% block="set background color %color"
     //% color.shadow="colorNumberPicker"
     //% color.defl=0x000000
+    //% group="Basic"
     //% weight=96
     export function tft_set_background_color(color: number) {
         verify_runtime();
@@ -108,6 +111,7 @@ namespace TFTLCD {
     //% color.shadow="colorNumberPicker"
     //% color.defl=0xffffff
     //% weight=95
+    //% group="Basic"
     export function tft_set_pen_color(color: number) {
         verify_runtime();
         i2cCommandSend(CMD_SET_PEN_COLOR, [
@@ -118,6 +122,7 @@ namespace TFTLCD {
     }
     //% block="show string %str"
     //% weight=94
+    //% group="Basic"
     export function tft_show_string(str: string) {
         let arr = [];
         for (let i = 0; i < str.length; i++) {
@@ -131,18 +136,21 @@ namespace TFTLCD {
     //% block="show number %num"
     //% num.defl=20
     //% weight=93
+    //% group="Basic"
     export function tft_show_num(num: number) {
         let str = "" + num;
         tft_show_string(str);
     }
     //% block="Line breaks"
     //% weight=91
+    //% group="Basic"
     export function tft_new_line() {
         verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [0]);
     };
     //% block="select the specified line %num and write string %str"
     //% weight=92
+    //% group="Basic"
     export function tft_select_line_write_string(num: LineNumEnum, str: string) {
         verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
@@ -151,6 +159,7 @@ namespace TFTLCD {
 
     //% block="select the specified line %num clear"
     //% weight=93
+    //% group="Basic"
     export function tft_select_line_clear(num: LineNumEnum) {
         verify_runtime();
         tft_select_line_write_string(num, "");
@@ -158,6 +167,7 @@ namespace TFTLCD {
 
     //% block="select the specified line %num and write num %wnum"
     //% weight=90
+    //% group="Basic"
     export function tft_select_line_write_num(num: LineNumEnum, wnum: number) {
         verify_runtime();
         i2cCommandSend(CMD_CHANGE_LINE, [num]);
@@ -175,6 +185,7 @@ namespace TFTLCD {
     //% xe.defl=20
     //% ye.defl=20
     //% weight=55
+    //% group="shape"
     export function tft_draw_line(xs: number, ys: number, xe: number, ye: number) {
 
         verify_runtime();
@@ -197,6 +208,7 @@ namespace TFTLCD {
     //% ye.defl=20
     //% fill.defl=false
     //% weight=50
+    //% group="shape"
     export function tft_draw_rect(xs: number, ys: number, xe: number, ye: number, fill: boolean) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_RECT, [
@@ -214,6 +226,7 @@ namespace TFTLCD {
 
     //% block="draw circle from %x,%y with radius %r fill %fill"
     //% weight=45
+    //% group="shape"
     export function tft_draw_circle(x: number, y: number, r: number, fill: boolean) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_CIRCLE, [
@@ -231,6 +244,7 @@ namespace TFTLCD {
     //% color.shadow="colorNumberPicker"
     //% color.defl=0x000000
     //% weight=40
+    //% group="shape"
     export function tft_draw_circular_loader(color: number) {
         verify_runtime();
         //color RGB888位转RGB565
@@ -245,6 +259,7 @@ namespace TFTLCD {
     //% percent.defl=50
     //% percent.min=0 percent.max=100
     //% weight=30
+    //% group="shape"
     export function tft_show_loading_bar(percent: number) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
@@ -262,6 +277,7 @@ namespace TFTLCD {
     //% column.min=1 column.max=10
     //% group.defl=1
     //% group.min=1 group.max=5
+    //% group="chart"
     export function tft_draw_histogram(drawtype: DrawType, ymin: number, ymax: number, column: number, group: number) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_HISTOGRAM, [
@@ -280,6 +296,7 @@ namespace TFTLCD {
     //% weight=20
     //% column.defl=1
     //% column.min=1 column.max=10
+    //% group="chart"
     export function tft_draw_histogram_data(column: number, name: string, num1: number, num2: number = null, num3: number = null, num4: number = null, num5: number = null) {
         verify_runtime();
         let arr = [];
@@ -320,6 +337,7 @@ namespace TFTLCD {
     //% blockId=pie block="draw pie chart: |part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
     //% expandableArgumentMode="enabled"
     //% weight=10
+    //% group="chart"
     export function draw_pie_chart(
         part1: PartInfo = null,
         part2: PartInfo = null,
