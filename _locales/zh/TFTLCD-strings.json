@@ -1,6 +1,8 @@
 {
   "TFTLCD.BlkCmdEnum.BlkOpen|block": "开启",
   "TFTLCD.BlkCmdEnum.BlkClose|block": "关闭",
+  "TFTLCD.DrawType.Histogram|block": "柱状图",
+  "TFTLCD.DrawType.Linechart|block": "折线图",
   "TFTLCD.tftBacklightCtrl|block": "背光 %cmd",
   "TFTLCD.tft_draw_line|block": "画线条起点|x:%xs|y:%ys|终点|x:%xe|y:%ye",
   "TFTLCD.tft_draw_rect|block": "绘制矩形 起点|x:%xs|y:%ys|终点|x:%xe|y:%ye|是否填充:%fill",

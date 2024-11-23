@@ -367,18 +367,18 @@ namespace TFTLCD {
     //% group="chart"
     export function tft_draw_chart_data(column: number, name: string, num1: number, num2: number = null, num3: number = null, num4: number = null, num5: number = null) {
         verify_runtime();
-        let arr = [];
-        arr.push(column & 0xff);
-        arr.push(num1 >> 8 & 0xff);
-        arr.push(num1 & 0xff);
-        arr.push(num2 >> 8 & 0xff);
-        arr.push(num2 & 0xff);
-        arr.push(num3 >> 8 & 0xff);
-        arr.push(num3 & 0xff);
-        arr.push(num4 >> 8 & 0xff);
-        arr.push(num4 & 0xff);
-        arr.push(num5 >> 8 & 0xff);
-        arr.push(num5 & 0xff);
+        let arr = [column & 0xFF];
+        let nums = [num1, num2, num3, num4, num5];
+        for(let i = 0; i < 5; i++)
+        {
+            if(nums[i] != null){
+                arr.push(nums[i] >> 8 & 0xff);
+                arr.push(nums[i] & 0xff);
+            }else {
+                arr.push(0);
+                arr.push(0);
+            }
+        }
         for (let i = 0; i < name.length; i++) {
             verify_runtime();
             arr.push(name.charCodeAt(i));
