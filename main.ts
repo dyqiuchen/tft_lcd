@@ -112,8 +112,9 @@ namespace TFTLCD {
      * 校准运行时间,防止屏还未初始化就调用函数
      */
     function verify_runtime() {
-        //while(!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE));
-
+        while(!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE)){
+            basic.pause(10)
+        }
     }
 
     /******************************************************************************************************
