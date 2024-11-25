@@ -113,7 +113,8 @@ namespace TFTLCD {
      */
     function verify_runtime() {
         while(!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE)){
-            basic.pause(10)
+            let time = input.runningTime();
+            while (input.runningTime()-time<10){}
         }
     }
 
