@@ -116,7 +116,7 @@ namespace TFTLCD {
     function verify_runtime() {
         while(!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE)){
             let time = input.runningTime();
-            while (input.runningTime()-time<5){}
+            while (input.runningTime()-time<2){}
         }
     }
 
@@ -341,6 +341,7 @@ namespace TFTLCD {
     //% ymin.min=-32767 ymin.max=32767
     //% ymax.defl=0
     //% ymax.min=-32767 ymax.max=32767
+    //% group="chart"
     //% color1.shadow="colorNumberPicker"
     //% color2.shadow="colorNumberPicker"
     //% color3.shadow="colorNumberPicker"
