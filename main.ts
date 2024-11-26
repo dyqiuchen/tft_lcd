@@ -22,6 +22,8 @@ namespace TFTLCD {
     const CMD_DRAW_HISTOGRAM_DATA = 0xC1;
     const CMD_DRAW_PIE_CHART = 0xC2;
 
+    let current_row = 0;
+
     export enum BlkCmdEnum {
         //%block="open"
         BlkOpen,
@@ -114,7 +116,7 @@ namespace TFTLCD {
     function verify_runtime() {
         while(!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE)){
             let time = input.runningTime();
-            while (input.runningTime()-time<10){}
+            while (input.runningTime()-time<5){}
         }
     }
 
@@ -131,6 +133,16 @@ namespace TFTLCD {
             buff[i + 4] = params[i];
         }
         pins.i2cWriteBuffer(TFT_I2C_ADDR, buff);
+    }
+
+    function change_row(row:number)
+    {
+        if (row) {
+            current_row = (row - 1) % 8; // 非0 指定行
+        }
+        else {
+            current_row = (current_row + 1) % 8; // 下一行
+        }
     }
 
     //% block="backlight set %cmd"
@@ -180,6 +192,7 @@ namespace TFTLCD {
     export function tft_show_string(str: string) {
         verify_runtime();
         let arr = [];
+        arr.push(current_row);
         for (let i = 0; i < str.length; i++) {
             arr.push(str.charCodeAt(i));
         }
@@ -200,7 +213,7 @@ namespace TFTLCD {
     //% group="Basic"
     export function tft_new_line() {
         verify_runtime();
-        i2cCommandSend(CMD_CHANGE_LINE, [0]);
+        current_row = 0;
     };
 
 
@@ -209,7 +222,7 @@ namespace TFTLCD {
     //% group="Basic"
     export function tft_select_line_write_string(num: number, str: string) {
         verify_runtime();
-        i2cCommandSend(CMD_CHANGE_LINE, [num]);
+        current_row = num-1;
         tft_show_string(str);
     };
 
@@ -226,7 +239,7 @@ namespace TFTLCD {
     //% group="Basic"
     export function tft_select_line_write_num(num: number, wnum: number) {
         verify_runtime();
-        i2cCommandSend(CMD_CHANGE_LINE, [num]);
+        current_row = num - 1;
         tft_show_num(wnum);
     };
 
