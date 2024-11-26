@@ -178,9 +178,9 @@ namespace TFTLCD {
     //% weight=94
     //% group="Basic"
     export function tft_show_string(str: string) {
+        verify_runtime();
         let arr = [];
         for (let i = 0; i < str.length; i++) {
-            verify_runtime();
             arr.push(str.charCodeAt(i));
         }
         arr.push(0);
