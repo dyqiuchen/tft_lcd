@@ -13,7 +13,7 @@ namespace TFTLCD {
     const CMD_SET_BACKGROUND_COLOR = 0x80;
     const CMD_SET_PEN_COLOR = 0x90;
     const CMD_DRAW_STRING = 0x30;
-    const CMD_CHANGE_LINE = 0x31;
+    const CMD_COORD_DRAW_STRING = 0x31;
     const CMD_CLEAR_LINE = 0x71;
     const CMD_DRAW_PROGRESS = 0xA0;
     const CMD_DRAW_CIRCULAR_LOADER = 0xA1;
@@ -261,6 +261,40 @@ namespace TFTLCD {
     export function tft_clear_line(num: number) {
         verify_runtime();
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
+    };
+
+    //% block="select %coord=drawCoord|write string %str and set color %color"
+    //% weight=85
+    //% color.defl=0x000000
+    //% color.shadow="colorNumberPicker"
+    //% group="Basic"
+    export function tft_select_coord_write_string(coord: DrawCoord, str: string,color:number) {
+        verify_runtime();
+        let arr = [
+            coord.x >> 8 & 0xff,
+            coord.x & 0xff,
+            coord.y >> 8 & 0xff,
+            coord.y & 0xff,
+            color >> 16 & 0xff,
+            color >> 8 & 0xff,
+            color & 0xff,
+        ];
+        for (let i = 0; i < str.length; i++) {
+            arr.push(str.charCodeAt(i));
+        }
+        arr.push(0);
+        i2cCommandSend(CMD_COORD_DRAW_STRING, arr);
+    };
+
+    //% block="select %coord=drawCoord|write num %num and set color %color"
+    //% weight=80
+    //% color.defl=0x000000
+    //% color.shadow="colorNumberPicker"
+    //% group="Basic"
+    export function tft_select_coord_write_num(coord: DrawCoord, num: number, color: number) {
+        verify_runtime();
+        let str = "" + num;
+        tft_select_coord_write_string(coord,str,color);
     };
 
     //% block="draw line |start %start=drawCoord|end %end=drawCoord"
