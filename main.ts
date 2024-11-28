@@ -108,15 +108,31 @@ namespace TFTLCD {
         Linechart = 1
     }
 
+    //绘制坐标一行化
+    export class DrawCoord {
+        public x: number;
+        public y: number;
+        constructor(x: number, y: number) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    //% blockHidden=1
+    //% blockId=drawCoord block="X: %x Y: %y"
+    export function drawCoord(x: number, y: number): DrawCoord {
+        return new DrawCoord(x, y);
+    }
+
 
 
     /**
      * 校准运行时间,防止屏还未初始化就调用函数
      */
     function verify_runtime() {
-        while(!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE)){
+        while (!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE)) {
             let time = input.runningTime();
-            while (input.runningTime()-time<5){}
+            while (input.runningTime() - time < 5) { }
         }
     }
 
@@ -135,8 +151,7 @@ namespace TFTLCD {
         pins.i2cWriteBuffer(TFT_I2C_ADDR, buff);
     }
 
-    function change_row(row:number)
-    {
+    function change_row(row: number) {
         if (row) {
             current_row = (row - 1) % 8; // 非0 指定行
         }
@@ -186,10 +201,10 @@ namespace TFTLCD {
             color & 0xff
         ]);
     }
-    //% block="show string %str"
-    //% weight=94
-    //% group="Basic"
-    export function tft_show_string(str: string) {
+    // block="show string %str"
+    // weight=94
+    // group="Basic"
+    function tft_show_string(str: string) {
         verify_runtime();
         let arr = [];
         arr.push(current_row);
@@ -200,18 +215,18 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_STRING, arr);
     }
 
-    //% block="show number %num"
-    //% num.defl=20
-    //% weight=93
-    //% group="Basic"
-    export function tft_show_num(num: number) {
+    // block="show number %num"
+    // num.defl=20
+    // weight=93
+    // group="Basic"
+    function tft_show_num(num: number) {
         let str = "" + num;
         tft_show_string(str);
     }
-    //% block="Line breaks"
-    //% weight=91
-    //% group="Basic"
-    export function tft_new_line() {
+    // block="Line breaks"
+    // weight=91
+    // group="Basic"
+    function tft_new_line() {
         verify_runtime();
         current_row = 0;
     };
@@ -222,7 +237,7 @@ namespace TFTLCD {
     //% group="Basic"
     export function tft_select_line_write_string(num: number, str: string) {
         verify_runtime();
-        current_row = num-1;
+        current_row = num - 1;
         tft_show_string(str);
     };
 
@@ -248,61 +263,55 @@ namespace TFTLCD {
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
     };
 
-    //% block="draw line from %xs,%ys to %xe,%ye"
-    //% xs.defl=0
-    //% ys.defl=0
-    //% xe.defl=20
-    //% ye.defl=20
+    //% block="draw line |start %start=drawCoord|end %end=drawCoord"
     //% weight=55
     //% group="shape"
-    export function tft_draw_line(xs: number, ys: number, xe: number, ye: number) {
-
+    //% inlineInputMode=external
+    export function tft_draw_line(start: DrawCoord,end: DrawCoord) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_LINE, [
-            xs >> 8 & 0xff,
-            xs & 0xff,
-            ys >> 8 & 0xff,
-            ys & 0xff,
-            xe >> 8 & 0xff,
-            xe & 0xff,
-            ye >> 8 & 0xff,
-            ye & 0xff
+            start.x >> 8 & 0xff,
+            start.x & 0xff,
+            start.y >> 8 & 0xff,
+            start.y & 0xff,
+            end.x >> 8 & 0xff,
+            end.x & 0xff,
+            end.y >> 8 & 0xff,
+            end.y & 0xff
         ]);
     }
 
-    //% block="draw rectange from|xs:%xs|ys:%ys to |xe:%xe|ye:%ye|fill:%fill"
-    //% xs.defl=0
-    //% ys.defl=0
-    //% xe.defl=20
-    //% ye.defl=20
+    //% block="draw rectange |start %start=drawCoord|end %end=drawCoord|fill:%fill"
     //% fill.defl=false
     //% weight=50
     //% group="shape"
-    export function tft_draw_rect(xs: number, ys: number, xe: number, ye: number, fill: boolean) {
+    //% inlineInputMode=external
+    export function tft_draw_rect(start: DrawCoord, end: DrawCoord, fill: boolean) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_RECT, [
-            xs >> 8 & 0xff,
-            xs & 0xff,
-            ys >> 8 & 0xff,
-            ys & 0xff,
-            xe >> 8 & 0xff,
-            xe & 0xff,
-            ye >> 8 & 0xff,
-            ye & 0xff,
+            start.x >> 8 & 0xff,
+            start.x & 0xff,
+            start.y >> 8 & 0xff,
+            start.y & 0xff,
+            end.x >> 8 & 0xff,
+            end.x & 0xff,
+            end.y >> 8 & 0xff,
+            end.y & 0xff,
             fill ? 0x01 : 0x00
         ]);
     }
 
-    //% block="draw circle from %x,%y with radius %r fill %fill"
+    //% block="draw circle |cen %cen=drawCoord|radius %r fill %fill"
     //% weight=45
     //% group="shape"
-    export function tft_draw_circle(x: number, y: number, r: number, fill: boolean) {
+    //% inlineInputMode=external
+    export function tft_draw_circle(cen: DrawCoord, r: number, fill: boolean) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_CIRCLE, [
-            x >> 8 & 0xff,
-            x & 0xff,
-            y >> 8 & 0xff,
-            y & 0xff,
+            cen.x >> 8 & 0xff,
+            cen.x & 0xff,
+            cen.y >> 8 & 0xff,
+            cen.y & 0xff,
             r >> 8 & 0xff,
             r & 0xff,
             fill ? 0x01 : 0x00
@@ -385,12 +394,11 @@ namespace TFTLCD {
         verify_runtime();
         let arr = [column & 0xFF];
         let nums = [num1, num2, num3, num4, num5];
-        for(let i = 0; i < 5; i++)
-        {
-            if(nums[i] != null){
+        for (let i = 0; i < 5; i++) {
+            if (nums[i] != null) {
                 arr.push(nums[i] >> 8 & 0xff);
                 arr.push(nums[i] & 0xff);
-            }else {
+            } else {
                 arr.push(0);
                 arr.push(0);
             }
@@ -406,8 +414,8 @@ namespace TFTLCD {
     export class PartInfo {
         public value: number;
         public name: string;
-        public color:number;
-        constructor(value: number, name: string,color:number) {
+        public color: number;
+        constructor(value: number, name: string, color: number) {
             this.name = name;
             this.value = value;
             this.color = color;
@@ -417,8 +425,8 @@ namespace TFTLCD {
     //% blockHidden=1
     //% blockId=createPartInfo block="value %value label %name color %color"
     //% color.shadow="colorNumberPicker"
-    export function createPartInfo(value: number, name: string,color:number): PartInfo {
-        return new PartInfo(value, name,color);
+    export function createPartInfo(value: number, name: string, color: number): PartInfo {
+        return new PartInfo(value, name, color);
     }
 
     //% blockId=pie block="draw pie chart: |part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
@@ -464,7 +472,7 @@ namespace TFTLCD {
             part_cnt++;
         }
         arr[0] = part_cnt;
-        
+
         i2cCommandSend(CMD_DRAW_PIE_CHART, arr)
     }
 }
