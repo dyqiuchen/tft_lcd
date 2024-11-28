@@ -177,7 +177,7 @@ namespace TFTLCD {
     }
     //% block="set background color %color"
     //% color.shadow="colorNumberPicker"
-    //% color.defl=0x000000
+    //% color.defl=0xffffff
     //% group="Basic"
     //% weight=96
     export function tft_set_background_color(color: number) {
@@ -190,7 +190,7 @@ namespace TFTLCD {
     }
     //% block="set draw pen color %color"
     //% color.shadow="colorNumberPicker"
-    //% color.defl=0xffffff
+    //% color.defl=0x000000
     //% weight=95
     //% group="Basic"
     export function tft_set_pen_color(color: number) {
@@ -318,9 +318,9 @@ namespace TFTLCD {
         ])
     }
 
-    //% block="set TFT draw a circular loadercolor %color"
+    //% block="set TFT draw a circular loadercolor  %color"
     //% color.shadow="colorNumberPicker"
-    //% color.defl=0x000000
+    //% color.defl=0x999999
     //% weight=40
     //% group="shape"
     export function tft_draw_circular_loader(color: number) {
@@ -333,7 +333,7 @@ namespace TFTLCD {
         ]);
     }
 
-    //% block="Show loading bar %percent"
+    //% block="Show loading bar %percent \\%"
     //% percent.defl=50
     //% percent.min=0 percent.max=100
     //% weight=30
