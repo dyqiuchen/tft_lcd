@@ -263,21 +263,16 @@ namespace TFTLCD {
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
     };
 
-    //% block="select %coord=drawCoord|write string %str and set color %color"
+    //% block="select %coord=drawCoord|write string %str"
     //% weight=85
-    //% color.defl=0x000000
-    //% color.shadow="colorNumberPicker"
     //% group="Basic"
-    export function tft_select_coord_write_string(coord: DrawCoord, str: string,color:number) {
+    export function tft_select_coord_write_string(coord: DrawCoord, str: string) {
         verify_runtime();
         let arr = [
             coord.x >> 8 & 0xff,
             coord.x & 0xff,
             coord.y >> 8 & 0xff,
             coord.y & 0xff,
-            color >> 16 & 0xff,
-            color >> 8 & 0xff,
-            color & 0xff,
         ];
         for (let i = 0; i < str.length; i++) {
             arr.push(str.charCodeAt(i));
@@ -286,15 +281,13 @@ namespace TFTLCD {
         i2cCommandSend(CMD_COORD_DRAW_STRING, arr);
     };
 
-    //% block="select %coord=drawCoord|write num %num and set color %color"
+    //% block="select %coord=drawCoord|write num %num"
     //% weight=80
-    //% color.defl=0x000000
-    //% color.shadow="colorNumberPicker"
     //% group="Basic"
-    export function tft_select_coord_write_num(coord: DrawCoord, num: number, color: number) {
+    export function tft_select_coord_write_num(coord: DrawCoord, num: number) {
         verify_runtime();
         let str = "" + num;
-        tft_select_coord_write_string(coord,str,color);
+        tft_select_coord_write_string(coord,str);
     };
 
     //% block="draw line |start %start=drawCoord|end %end=drawCoord"
