@@ -160,7 +160,7 @@ namespace TFTLCD {
         }
     }
 
-    //% block="backlight set %cmd"
+    //% block="set backlight %cmd"
     //% weight=100
     //% group="Basic"
     export function tftBacklightCtrl(cmd: BlkCmdEnum) {
@@ -168,7 +168,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == BlkCmdEnum.BlkOpen ? 0x01 : 0x00]);
     }
 
-    //% block="set background clear screen"
+    //% block="clear screen"
     //% weight=97
     //% group="Basic"
     export function tft_clear_screen() {
@@ -232,7 +232,7 @@ namespace TFTLCD {
     };
 
 
-    //% block="select the specified line %num=LineNumEnum and write string %str"
+    //% block="select line %num=LineNumEnum and write string %str"
     //% weight=92
     //% group="Basic"
     export function tft_select_line_write_string(num: number, str: string) {
@@ -241,7 +241,7 @@ namespace TFTLCD {
         tft_show_string(str);
     };
 
-    //% block="select the specified line %num=LineNumEnum clear"
+    //% block="select line %num=LineNumEnum clear"
     //% weight=93
     //% group="Basic"
     export function tft_select_line_clear(num: number) {
@@ -249,7 +249,7 @@ namespace TFTLCD {
         tft_select_line_write_string(num, "");
     };
 
-    //% block="select the specified line %num=LineNumEnum and write num %wnum"
+    //% block="select line %num=LineNumEnum and write num %wnum"
     //% weight=90
     //% group="Basic"
     export function tft_select_line_write_num(num: number, wnum: number) {
@@ -328,7 +328,7 @@ namespace TFTLCD {
         ]);
     }
 
-    //% block="draw circle |cen %cen=drawCoord|radius %r fill %fill"
+    //% block="draw circle|cen %cen=drawCoord|radius %r fill %fill"
     //% weight=45
     //% group="shape"
     //% inlineInputMode=external
@@ -345,7 +345,7 @@ namespace TFTLCD {
         ])
     }
 
-    //% block="set TFT draw a circular loadercolor  %color"
+    //% block="draw a circular loadercolor  %color"
     //% color.shadow="colorNumberPicker"
     //% color.defl=0x999999
     //% weight=40
@@ -370,7 +370,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
     };
 
-    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column=ChartNumColmun and group1 color %color1||group2 color %color2|group3 color %color3|group4 color %color4|group5 color %color5|"
+    //% block="draw %drawtype|set Y min %ymin and Y max %ymax|set column %column=ChartNumColmun|group1 color %color1||group2 color %color2|group3 color %color3|group4 color %color4|group5 color %color5|"
     //% expandableArgumentMode="enabled"
     //% weight=21
     //% ymin.defl=0
@@ -383,6 +383,7 @@ namespace TFTLCD {
     //% color3.shadow="colorNumberPicker"
     //% color4.shadow="colorNumberPicker"
     //% color5.shadow="colorNumberPicker"
+    //% inlineInputMode=external
     export function tft_draw_chart(drawtype: DrawType, ymin: number, ymax: number, column: number, color1: number, color2: number = null, color3: number = null, color4: number = null, color5: number = null) {
         verify_runtime();
         let arr = [
@@ -411,12 +412,13 @@ namespace TFTLCD {
     }
 
     //% inlineInputMode=external
-    //% block="write chart data: |set column %column=ChartNumColmun name as %name|data1 = %num1||data2 = %num2|data3 = %num3|data4 = %num4|data5 = %num5"
+    //% block="write chart data|set column %column=ChartNumColmun name as %name|data1 = %num1||data2 = %num2|data3 = %num3|data4 = %num4|data5 = %num5"
     //% expandableArgumentMode="enabled"
     //% weight=20
     //% column.defl=1
     //% column.min=1 column.max=10
     //% group="chart"
+    //% inlineInputMode=external
     export function tft_draw_chart_data(column: number, name: string, num1: number, num2: number = null, num3: number = null, num4: number = null, num5: number = null) {
         verify_runtime();
         let arr = [column & 0xFF];
@@ -456,10 +458,11 @@ namespace TFTLCD {
         return new PartInfo(value, name, color);
     }
 
-    //% blockId=pie block="draw pie chart: |part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
+    //% blockId=pie block="draw pie chart|part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
     //% expandableArgumentMode="enabled"
     //% weight=10
     //% group="chart"
+    //% inlineInputMode=external
     export function draw_pie_chart(
         part1: PartInfo = null,
         part2: PartInfo = null,
