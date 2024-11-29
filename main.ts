@@ -124,6 +124,12 @@ namespace TFTLCD {
         return new DrawCoord(x, y);
     }
 
+    //% blockHidden=1
+    //% blockId=setMinMax block="min %min max %max"
+    export function setMinMax(min: number, max: number): DrawCoord {
+        return new DrawCoord(min, max);
+    }
+
 
 
     /**
@@ -370,7 +376,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
     };
 
-    //% block="draw %drawtype|set Y min %ymin and Y max %ymax|set column %column=ChartNumColmun|group1 color %color1||group2 color %color2|group3 color %color3|group4 color %color4|group5 color %color5|"
+    //% block="draw %drawtype|set Y %yarray=setMinMax|set column %column=ChartNumColmun|group1 color %color1||group2 color %color2|group3 color %color3|group4 color %color4|group5 color %color5|"
     //% expandableArgumentMode="enabled"
     //% weight=21
     //% ymin.defl=0
@@ -384,13 +390,13 @@ namespace TFTLCD {
     //% color4.shadow="colorNumberPicker"
     //% color5.shadow="colorNumberPicker"
     //% inlineInputMode=external
-    export function tft_draw_chart(drawtype: DrawType, ymin: number, ymax: number, column: number, color1: number, color2: number = null, color3: number = null, color4: number = null, color5: number = null) {
+    export function tft_draw_chart(drawtype: DrawType, yarray: DrawCoord, column: number, color1: number, color2: number = null, color3: number = null, color4: number = null, color5: number = null) {
         verify_runtime();
         let arr = [
-            ymin >> 8 & 0xff,
-            ymin & 0xff,
-            ymax >> 8 & 0xff,
-            ymax & 0xff,
+            yarray.x >> 8 & 0xff,
+            yarray.x & 0xff,
+            yarray.y >> 8 & 0xff,
+            yarray.y & 0xff,
             column & 0xff,
             0,
             drawtype & 0xff
