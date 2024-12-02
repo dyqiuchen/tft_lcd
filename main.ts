@@ -142,12 +142,8 @@ namespace TFTLCD {
         }
     }
 
-    function rtn_str(str: string): number {
-        if ((str.charCodeAt(0) < 0) || (str.charCodeAt(0) > 127)) {
-            return 0
-        } else {
-            return str.charCodeAt(0)
-        }
+    function adjust_charcode(code: number): number {
+        return code < 0x20 || code > 0x7F ? 0x20 :code;
     }
 
     /******************************************************************************************************
@@ -223,7 +219,7 @@ namespace TFTLCD {
         let arr = [];
         arr.push(current_row);
         for (let i = 0; i < str.length; i++) {
-            arr.push(rtn_str(str[i]));
+            arr.push(adjust_charcode(str.charCodeAt(i)));
         }
         arr.push(0);
         i2cCommandSend(CMD_DRAW_STRING, arr);
@@ -289,7 +285,7 @@ namespace TFTLCD {
             coord.y & 0xff,
         ];
         for (let i = 0; i < str.length; i++) {
-            arr.push(rtn_str(str[i]));
+            arr.push(adjust_charcode(str.charCodeAt(i)));
         }
         arr.push(0);
         i2cCommandSend(CMD_COORD_DRAW_STRING, arr);
@@ -448,7 +444,7 @@ namespace TFTLCD {
         }
         for (let i = 0; i < name.length; i++) {
             verify_runtime();
-            arr.push(rtn_str(name[i]));
+            arr.push(adjust_charcode(name.charCodeAt(i)));
         }
         arr.push(0);
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
@@ -503,7 +499,7 @@ namespace TFTLCD {
             let len = part_arr[i].name.length;
             for (let j = 0; j < (len > 6 ? 3 : len); j++) {
                 arr.push(part_arr[i].name.charCodeAt(j));
-                arr.push(rtn_str(part_arr[i].name[j]));
+                arr.push(adjust_charcode(part_arr[i].name.charCodeAt(j)));
             }
             if (len > 6) {
                 arr.push(".".charCodeAt(0))
