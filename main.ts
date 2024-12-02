@@ -142,6 +142,14 @@ namespace TFTLCD {
         }
     }
 
+    function rtn_str(str: string): number {
+        if ((str.charCodeAt(0) < 0) || (str.charCodeAt(0) > 127)) {
+            return 0
+        } else {
+            return str.charCodeAt(0)
+        }
+    }
+
     /******************************************************************************************************
      * 工具函数
      ******************************************************************************************************/
@@ -215,7 +223,7 @@ namespace TFTLCD {
         let arr = [];
         arr.push(current_row);
         for (let i = 0; i < str.length; i++) {
-            arr.push(str.charCodeAt(i));
+            arr.push(rtn_str(str[i]));
         }
         arr.push(0);
         i2cCommandSend(CMD_DRAW_STRING, arr);
@@ -281,7 +289,7 @@ namespace TFTLCD {
             coord.y & 0xff,
         ];
         for (let i = 0; i < str.length; i++) {
-            arr.push(str.charCodeAt(i));
+            arr.push(rtn_str(str[i]));
         }
         arr.push(0);
         i2cCommandSend(CMD_COORD_DRAW_STRING, arr);
@@ -293,14 +301,14 @@ namespace TFTLCD {
     export function tft_select_coord_write_num(coord: DrawCoord, num: number) {
         verify_runtime();
         let str = "" + num;
-        tft_select_coord_write_string(coord,str);
+        tft_select_coord_write_string(coord, str);
     };
 
     //% block="draw line |start %start=drawCoord|end %end=drawCoord"
     //% weight=55
     //% group="shape"
     //% inlineInputMode=external
-    export function tft_draw_line(start: DrawCoord,end: DrawCoord) {
+    export function tft_draw_line(start: DrawCoord, end: DrawCoord) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_LINE, [
             start.x >> 8 & 0xff,
@@ -440,7 +448,7 @@ namespace TFTLCD {
         }
         for (let i = 0; i < name.length; i++) {
             verify_runtime();
-            arr.push(name.charCodeAt(i));
+            arr.push(rtn_str(name[i]));
         }
         arr.push(0);
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
@@ -495,6 +503,7 @@ namespace TFTLCD {
             let len = part_arr[i].name.length;
             for (let j = 0; j < (len > 6 ? 3 : len); j++) {
                 arr.push(part_arr[i].name.charCodeAt(j));
+                arr.push(rtn_str(part_arr[i].name[j]));
             }
             if (len > 6) {
                 arr.push(".".charCodeAt(0))
