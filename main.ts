@@ -404,6 +404,7 @@ namespace TFTLCD {
     //% expandableArgumentMode="enabled"
     //% weight=21
     //% group="chart"
+    //% inlineInputMode=external
     export function tft_draw_chart(drawtype: DrawType, yarray: DrawCoord, column: number,
         group1: PartInfo = null,
         group2: PartInfo = null,
