@@ -140,9 +140,10 @@ namespace TFTLCD {
      * 校准运行时间,防止屏还未初始化就调用函数
      */
     function verify_runtime() {
+        let time = 0;
         while (!pins.i2cReadNumber(TFT_I2C_ADDR, NumberFormat.Int8LE)) {
-            let time = input.runningTime();
-            while (input.runningTime() - time < 5) { }
+            time = input.runningTime() + 5;
+            while (input.runningTime() < time) { }
         }
     }
 
