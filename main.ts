@@ -343,7 +343,23 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_PROGRESS, [percent]);
     };
 
-    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column=ChartNumColmun and group1 color %color1||group2 color %color2|group3 color %color3|group4 color %color4|group5 color %color5|"
+    export class GroupInfo {
+        public name: string;
+        public color: number;
+        constructor(name: string, color: number) {
+            this.name = name;
+            this.color = color;
+        }
+    }
+
+    //% blockHidden=1
+    //% blockId=createGroupInfo block="color %color label %name "
+    //% color.shadow="colorNumberPicker"
+    export function createGroupInfo(name: string, color: number): GroupInfo {
+        return new GroupInfo(name, color);
+    }
+
+    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column=ChartNumColmun and group1 %group1=createGroupInfo||group2 %group2=createGroupInfo|group3 %group3=createGroupInfo|group4 %group4=createGroupInfo|group5 %group5=createGroupInfo|"
     //% expandableArgumentMode="enabled"
     //% weight=21
     //% ymin.defl=0
@@ -351,12 +367,12 @@ namespace TFTLCD {
     //% ymax.defl=0
     //% ymax.min=-32767 ymax.max=32767
     //% group="chart"
-    //% color1.shadow="colorNumberPicker"
-    //% color2.shadow="colorNumberPicker"
-    //% color3.shadow="colorNumberPicker"
-    //% color4.shadow="colorNumberPicker"
-    //% color5.shadow="colorNumberPicker"
-    export function tft_draw_chart(drawtype: DrawType, ymin: number, ymax: number, column: number, color1: number, color2: number = null, color3: number = null, color4: number = null, color5: number = null) {
+    export function tft_draw_chart(drawtype: DrawType, ymin: number, ymax: number, column: number,
+        group1: PartInfo = null,
+        group2: PartInfo = null,
+        group3: PartInfo = null,
+        group4: PartInfo = null,
+        group5: PartInfo = null,) {
         verify_runtime();
         let arr = [
             ymin >> 8 & 0xff,
@@ -367,15 +383,25 @@ namespace TFTLCD {
             0,
             drawtype & 0xff
         ];
-        let buf = [color1, color2, color3, color4, color5];
+        let group_arr = [group1, group2, group3, group4, group5];
         let group_cnt = 0;
         for (let i = 0; i < 5; i++) {
-            if (buf[i] == null) {
+            if (group_arr[i] == null) {
                 break;
             }
-            arr.push(buf[i] >> 16 & 0xff)
-            arr.push(buf[i] >> 8 & 0xff)
-            arr.push(buf[i] & 0xff)
+            let len = group_arr[i].name.length;
+            for (let j = 0; j < (len > 6 ? 3 : len); j++) {
+                arr.push(group_arr[i].name.charCodeAt(j));
+            }
+            if (len > 6) {
+                arr.push(".".charCodeAt(0))
+                arr.push(".".charCodeAt(0))
+                arr.push(".".charCodeAt(0))
+            }
+            arr.push(0)
+            arr.push(group_arr[i].color >> 16 & 0xff)
+            arr.push(group_arr[i].color >> 8 & 0xff)
+            arr.push(group_arr[i].color & 0xff)
             group_cnt++;
         }
         arr[5] = group_cnt;
