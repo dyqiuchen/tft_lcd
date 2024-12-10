@@ -396,7 +396,7 @@ namespace TFTLCD {
     //% blockHidden=1
     //% blockId=createGroupInfo block="color %color label %name "
     //% color.shadow="colorNumberPicker"
-    export function createGroupInfo(name: string, color: number): GroupInfo {
+    export function createGroupInfo(color: number,name: string): GroupInfo {
         return new GroupInfo(name, color);
     }
 
@@ -406,11 +406,11 @@ namespace TFTLCD {
     //% group="chart"
     //% inlineInputMode=external
     export function tft_draw_chart(drawtype: DrawType, yarray: DrawCoord, column: number,
-        group1: PartInfo = null,
-        group2: PartInfo = null,
-        group3: PartInfo = null,
-        group4: PartInfo = null,
-        group5: PartInfo = null,) {
+        group1: GroupInfo = null,
+        group2: GroupInfo = null,
+        group3: GroupInfo = null,
+        group4: GroupInfo = null,
+        group5: GroupInfo = null) {
         verify_runtime();
         let arr = [
             yarray.x >> 8 & 0xff,
@@ -447,7 +447,6 @@ namespace TFTLCD {
         i2cCommandSend(CMD_DRAW_HISTOGRAM, arr)
     }
 
-    //% inlineInputMode=external
     //% block="write chart data|set column %column=ChartNumColmun name as %name|data1 = %num1||data2 = %num2|data3 = %num3|data4 = %num4|data5 = %num5"
     //% expandableArgumentMode="enabled"
     //% weight=20
@@ -509,8 +508,7 @@ namespace TFTLCD {
         part7: PartInfo = null,
         part8: PartInfo = null,
         part9: PartInfo = null,
-        part10: PartInfo = null,
-    ) {
+        part10: PartInfo = null) {
         verify_runtime();
         let part_cnt = 0;
         let arr = [0];
