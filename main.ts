@@ -470,7 +470,6 @@ namespace TFTLCD {
             }
         }
         for (let i = 0; i < name.length; i++) {
-            verify_runtime();
             arr.push(adjust_charcode(name.charCodeAt(i)));
         }
         arr.push(0);
