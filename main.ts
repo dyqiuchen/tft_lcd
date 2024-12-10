@@ -394,7 +394,7 @@ namespace TFTLCD {
     }
 
     //% blockHidden=1
-    //% blockId=createGroupInfo block="color %color label %name "
+    //% blockId=createGroupInfo block="color %color label %name"
     //% color.shadow="colorNumberPicker"
     export function createGroupInfo(color: number,name: string): GroupInfo {
         return new GroupInfo(color,name);
