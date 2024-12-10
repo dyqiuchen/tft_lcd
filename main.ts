@@ -13,7 +13,7 @@ namespace TFTLCD {
     const CMD_SET_BACKGROUND_COLOR = 0x80;
     const CMD_SET_PEN_COLOR = 0x90;
     const CMD_DRAW_STRING = 0x30;
-    const CMD_CHANGE_LINE = 0x31;
+    const CMD_COORD_DRAW_STRING = 0x31;
     const CMD_CLEAR_LINE = 0x71;
     const CMD_DRAW_PROGRESS = 0xA0;
     const CMD_DRAW_CIRCULAR_LOADER = 0xA1;
@@ -124,6 +124,16 @@ namespace TFTLCD {
         return new DrawCoord(x, y);
     }
 
+    //% blockHidden=1
+    //% blockId=setMinMax block="min %min max %max"
+    //% min.defl=0
+    //% min.min=-32767 ymin.max=32767
+    //% max.defl=0
+    //% max.min=-32767 ymax.max=32767
+    export function setMinMax(min: number, max: number): DrawCoord {
+        return new DrawCoord(min, max);
+    }
+
 
 
     /**
@@ -134,6 +144,10 @@ namespace TFTLCD {
             let time = input.runningTime();
             while (input.runningTime() - time < 5) { }
         }
+    }
+
+    function adjust_charcode(code: number): number {
+        return code < 0x20 || code > 0x7F ? 0x20 :code;
     }
 
     /******************************************************************************************************
@@ -160,7 +174,7 @@ namespace TFTLCD {
         }
     }
 
-    //% block="backlight set %cmd"
+    //% block="set backlight %cmd"
     //% weight=100
     //% group="Basic"
     export function tftBacklightCtrl(cmd: BlkCmdEnum) {
@@ -168,7 +182,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_SET_BACKLIGHT, [cmd == BlkCmdEnum.BlkOpen ? 0x01 : 0x00]);
     }
 
-    //% block="set background clear screen"
+    //% block="clear screen"
     //% weight=97
     //% group="Basic"
     export function tft_clear_screen() {
@@ -177,7 +191,7 @@ namespace TFTLCD {
     }
     //% block="set background color %color"
     //% color.shadow="colorNumberPicker"
-    //% color.defl=0x000000
+    //% color.defl=0xffffff
     //% group="Basic"
     //% weight=96
     export function tft_set_background_color(color: number) {
@@ -190,7 +204,7 @@ namespace TFTLCD {
     }
     //% block="set draw pen color %color"
     //% color.shadow="colorNumberPicker"
-    //% color.defl=0xffffff
+    //% color.defl=0x000000
     //% weight=95
     //% group="Basic"
     export function tft_set_pen_color(color: number) {
@@ -209,7 +223,7 @@ namespace TFTLCD {
         let arr = [];
         arr.push(current_row);
         for (let i = 0; i < str.length; i++) {
-            arr.push(str.charCodeAt(i));
+            arr.push(adjust_charcode(str.charCodeAt(i)));
         }
         arr.push(0);
         i2cCommandSend(CMD_DRAW_STRING, arr);
@@ -232,7 +246,7 @@ namespace TFTLCD {
     };
 
 
-    //% block="select the specified line %num=LineNumEnum and write string %str"
+    //% block="select line %num=LineNumEnum and write string %str"
     //% weight=92
     //% group="Basic"
     export function tft_select_line_write_string(num: number, str: string) {
@@ -241,7 +255,7 @@ namespace TFTLCD {
         tft_show_string(str);
     };
 
-    //% block="select the specified line %num=LineNumEnum clear"
+    //% block="select line %num=LineNumEnum clear"
     //% weight=93
     //% group="Basic"
     export function tft_select_line_clear(num: number) {
@@ -249,7 +263,7 @@ namespace TFTLCD {
         tft_select_line_write_string(num, "");
     };
 
-    //% block="select the specified line %num=LineNumEnum and write num %wnum"
+    //% block="select line %num=LineNumEnum and write num %wnum"
     //% weight=90
     //% group="Basic"
     export function tft_select_line_write_num(num: number, wnum: number) {
@@ -263,11 +277,38 @@ namespace TFTLCD {
         i2cCommandSend(CMD_CLEAR_LINE, [num]);
     };
 
+    //% block="select %coord=drawCoord|write string %str"
+    //% weight=85
+    //% group="Basic"
+    export function tft_select_coord_write_string(coord: DrawCoord, str: string) {
+        verify_runtime();
+        let arr = [
+            coord.x >> 8 & 0xff,
+            coord.x & 0xff,
+            coord.y >> 8 & 0xff,
+            coord.y & 0xff,
+        ];
+        for (let i = 0; i < str.length; i++) {
+            arr.push(adjust_charcode(str.charCodeAt(i)));
+        }
+        arr.push(0);
+        i2cCommandSend(CMD_COORD_DRAW_STRING, arr);
+    };
+
+    //% block="select %coord=drawCoord|write num %num"
+    //% weight=80
+    //% group="Basic"
+    export function tft_select_coord_write_num(coord: DrawCoord, num: number) {
+        verify_runtime();
+        let str = "" + num;
+        tft_select_coord_write_string(coord, str);
+    };
+
     //% block="draw line |start %start=drawCoord|end %end=drawCoord"
     //% weight=55
     //% group="shape"
     //% inlineInputMode=external
-    export function tft_draw_line(start: DrawCoord,end: DrawCoord) {
+    export function tft_draw_line(start: DrawCoord, end: DrawCoord) {
         verify_runtime();
         i2cCommandSend(CMD_DRAW_LINE, [
             start.x >> 8 & 0xff,
@@ -301,7 +342,7 @@ namespace TFTLCD {
         ]);
     }
 
-    //% block="draw circle |cen %cen=drawCoord|radius %r fill %fill"
+    //% block="draw circle|cen %cen=drawCoord|radius %r fill %fill"
     //% weight=45
     //% group="shape"
     //% inlineInputMode=external
@@ -318,9 +359,9 @@ namespace TFTLCD {
         ])
     }
 
-    //% block="set TFT draw a circular loadercolor %color"
+    //% block="draw a circular loadercolor  %color"
     //% color.shadow="colorNumberPicker"
-    //% color.defl=0x000000
+    //% color.defl=0x999999
     //% weight=40
     //% group="shape"
     export function tft_draw_circular_loader(color: number) {
@@ -333,7 +374,7 @@ namespace TFTLCD {
         ]);
     }
 
-    //% block="Show loading bar %percent"
+    //% block="Show loading bar %percent \\%"
     //% percent.defl=50
     //% percent.min=0 percent.max=100
     //% weight=30
@@ -359,15 +400,11 @@ namespace TFTLCD {
         return new GroupInfo(name, color);
     }
 
-    //% block="draw %drawtype: | set Y min %ymin and Y max %ymax, |set column %column=ChartNumColmun and group1 %group1=createGroupInfo||group2 %group2=createGroupInfo|group3 %group3=createGroupInfo|group4 %group4=createGroupInfo|group5 %group5=createGroupInfo|"
+    //% block="draw %drawtype|set Y %yarray=setMinMax|set column %column=ChartNumColmun|group1 %group1=createGroupInfo||group2 %group2=createGroupInfo|group3 %group3=createGroupInfo|group4 %group4=createGroupInfo|group5 %group5=createGroupInfo|"
     //% expandableArgumentMode="enabled"
     //% weight=21
-    //% ymin.defl=0
-    //% ymin.min=-32767 ymin.max=32767
-    //% ymax.defl=0
-    //% ymax.min=-32767 ymax.max=32767
     //% group="chart"
-    export function tft_draw_chart(drawtype: DrawType, ymin: number, ymax: number, column: number,
+    export function tft_draw_chart(drawtype: DrawType, yarray: DrawCoord, column: number,
         group1: PartInfo = null,
         group2: PartInfo = null,
         group3: PartInfo = null,
@@ -375,10 +412,10 @@ namespace TFTLCD {
         group5: PartInfo = null,) {
         verify_runtime();
         let arr = [
-            ymin >> 8 & 0xff,
-            ymin & 0xff,
-            ymax >> 8 & 0xff,
-            ymax & 0xff,
+            yarray.x >> 8 & 0xff,
+            yarray.x & 0xff,
+            yarray.y >> 8 & 0xff,
+            yarray.y & 0xff,
             column & 0xff,
             0,
             drawtype & 0xff
@@ -410,12 +447,13 @@ namespace TFTLCD {
     }
 
     //% inlineInputMode=external
-    //% block="write chart data: |set column %column=ChartNumColmun name as %name|data1 = %num1||data2 = %num2|data3 = %num3|data4 = %num4|data5 = %num5"
+    //% block="write chart data|set column %column=ChartNumColmun name as %name|data1 = %num1||data2 = %num2|data3 = %num3|data4 = %num4|data5 = %num5"
     //% expandableArgumentMode="enabled"
     //% weight=20
     //% column.defl=1
     //% column.min=1 column.max=10
     //% group="chart"
+    //% inlineInputMode=external
     export function tft_draw_chart_data(column: number, name: string, num1: number, num2: number = null, num3: number = null, num4: number = null, num5: number = null) {
         verify_runtime();
         let arr = [column & 0xFF];
@@ -431,7 +469,7 @@ namespace TFTLCD {
         }
         for (let i = 0; i < name.length; i++) {
             verify_runtime();
-            arr.push(name.charCodeAt(i));
+            arr.push(adjust_charcode(name.charCodeAt(i)));
         }
         arr.push(0);
         i2cCommandSend(CMD_DRAW_HISTOGRAM_DATA, arr)
@@ -455,10 +493,11 @@ namespace TFTLCD {
         return new PartInfo(value, name, color);
     }
 
-    //% blockId=pie block="draw pie chart: |part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
+    //% blockId=pie block="draw pie chart|part1 %part1=createPartInfo||part2 %part2=createPartInfo|part3 %part3=createPartInfo|part4 %part4=createPartInfo|part5 %part5=createPartInfo| part6 %part6=createPartInfo|part7 %part7=createPartInfo|part8 %part8=createPartInfo|part9 %part9=createPartInfo|pie10 %part10=createPartInfo"
     //% expandableArgumentMode="enabled"
     //% weight=10
     //% group="chart"
+    //% inlineInputMode=external
     export function draw_pie_chart(
         part1: PartInfo = null,
         part2: PartInfo = null,
@@ -484,7 +523,7 @@ namespace TFTLCD {
             arr.push(part_arr[i].value & 0xff);
             let len = part_arr[i].name.length;
             for (let j = 0; j < (len > 6 ? 3 : len); j++) {
-                arr.push(part_arr[i].name.charCodeAt(j));
+                arr.push(adjust_charcode(part_arr[i].name.charCodeAt(j)));
             }
             if (len > 6) {
                 arr.push(".".charCodeAt(0))
