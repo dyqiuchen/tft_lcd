@@ -385,11 +385,11 @@ namespace TFTLCD {
     };
 
     export class GroupInfo {
-        public name: string;
         public color: number;
-        constructor(name: string, color: number) {
-            this.name = name;
+        public name: string;
+        constructor(color: number,name: string) {
             this.color = color;
+            this.name = name;
         }
     }
 
@@ -397,12 +397,14 @@ namespace TFTLCD {
     //% blockId=createGroupInfo block="color %color label %name "
     //% color.shadow="colorNumberPicker"
     export function createGroupInfo(color: number,name: string): GroupInfo {
-        return new GroupInfo(name, color);
+        return new GroupInfo(color,name);
     }
 
     //% block="draw %drawtype|set Y %yarray=setMinMax|set column %column=ChartNumColmun|group1 %group1=createGroupInfo||group2 %group2=createGroupInfo|group3 %group3=createGroupInfo|group4 %group4=createGroupInfo|group5 %group5=createGroupInfo|"
     //% expandableArgumentMode="enabled"
     //% weight=21
+    //% column.defl=1
+    //% column.min=1 column.max=10
     //% group="chart"
     //% inlineInputMode=external
     export function tft_draw_chart(drawtype: DrawType, yarray: DrawCoord, column: number,
