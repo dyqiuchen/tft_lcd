@@ -203,7 +203,9 @@ namespace TFTLCD {
             color & 0xff
         ]);
     }
-    //% block="set draw pen color $color=colorindexpicker"
+    //% block="set draw pen color %color"
+    //% color.shadow="colorindexpicker"
+    //% color.defl=#000000
     //% weight=95
     //% group="Basic"
     export function tft_set_pen_color(color: number) {
