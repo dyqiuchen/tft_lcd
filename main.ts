@@ -219,7 +219,7 @@ namespace TFTLCD {
 
     //% blockId=colorindexpicker block="$index" blockHidden=true shim=TD_ID
     //% index.fieldEditor="colornumber"
-    //% index.fieldOptions.valueMode="index"
+    //% index.fieldOptions.valueMode="rgb"
     //% index.fieldOptions.colours='["#000000", "#FFFFFF", "#FF0000", "#00FF00","#0000FF", "#FFFF00", "#FF00FF", "#00FFFF","#C81D31", "#EF949E", "#F5B7BF", "#FADBDF","#249087", "#7DDFD7","#A9E9E4","#D4F4F2","#588E32","#ACD78E","#C8E5B3","#E3F2D9","#B68C02","#FED961","#FEE695","#FFF2CA","#C65F10","#F5B482","#F8CDAC","#FCE6D5","#2E54A1","#91ACE0","#B6C7EA","#DAE3F5","#333F50","#8497B0","#ADB9CA","#D6DCE5", "#767171","#AFABAB","#D0CECE","#E7E6E6"]'
     //% index.fieldOptions.columns=4
     export function __colorIndexPicker(index: number) {
@@ -551,12 +551,5 @@ namespace TFTLCD {
         arr[0] = part_cnt;
 
         i2cCommandSend(CMD_DRAW_PIE_CHART, arr)
-    }
-    
-    //% blockId=info block="value %value label %name color %color"
-    //% color.shadow="colorindexpicker"
-    //% color.defl="#FF0000"
-    export function info(value: number, name: string, color: number): PartInfo {
-        return new PartInfo(value, name, color);
     }
 }
