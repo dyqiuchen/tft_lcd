@@ -552,4 +552,11 @@ namespace TFTLCD {
 
         i2cCommandSend(CMD_DRAW_PIE_CHART, arr)
     }
+    
+    //% blockId=info block="value %value label %name color %color"
+    //% color.shadow="colorindexpicker"
+    //% color.defl="#FF0000"
+    export function info(value: number, name: string, color: number): PartInfo {
+        return new PartInfo(value, name, color);
+    }
 }
