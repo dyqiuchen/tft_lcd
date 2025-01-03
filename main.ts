@@ -199,7 +199,7 @@ namespace TFTLCD {
     //% b.min=0 b.max=255 b.defl=255
     //% group="Basic"
     export function rgb(r: number, g: number, b: number): number {
-        return (r & 0xFF << 16) | (g & 0xFF << 8) | (b & 0xFF);
+        return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
     }
     //% block="set background color %color"
     //% color.shadow="colorindexpicker"
