@@ -85,6 +85,7 @@ namespace TFTLCD {
         Chart5 = 5
     }
 
+    
     //% blockHidden=1
     //% blockId=LineNumEnum block="%value"
     export function selectLineNumEnum(value: LineNumEnum): number {
@@ -100,14 +101,14 @@ namespace TFTLCD {
     export function selectChartNumGroup(value: ChartNumGroup): number {
         return value;
     }
-
+    
     export enum DrawType {
         //% block="Histogram"
         Histogram = 0,
         //% block="Linechart"
         Linechart = 1
     }
-
+    
     //绘制坐标一行化
     export class DrawCoord {
         public x: number;
@@ -117,13 +118,13 @@ namespace TFTLCD {
             this.y = y;
         }
     }
-
+    
     //% blockHidden=1
     //% blockId=drawCoord block="X: %x Y: %y"
     export function drawCoord(x: number, y: number): DrawCoord {
         return new DrawCoord(x, y);
     }
-
+    
     //% blockHidden=1
     //% blockId=setMinMax block="min %min max %max"
     //% min.defl=0
@@ -133,9 +134,9 @@ namespace TFTLCD {
     export function setMinMax(min: number, max: number): DrawCoord {
         return new DrawCoord(min, max);
     }
-
-
-
+    
+    
+    
     /**
      * 校准运行时间,防止屏还未初始化就调用函数
      */
@@ -146,11 +147,11 @@ namespace TFTLCD {
             while (input.runningTime() < time) { }
         }
     }
-
+    
     function adjust_charcode(code: number): number {
-        return code < 0x20 || code > 0x7F ? 0x20 :code;
+        return code < 0x20 || code > 0x7F ? 0x20 : code;
     }
-
+    
     /******************************************************************************************************
      * 工具函数
      ******************************************************************************************************/
@@ -165,7 +166,7 @@ namespace TFTLCD {
         }
         pins.i2cWriteBuffer(TFT_I2C_ADDR, buff);
     }
-
+    
     function change_row(row: number) {
         if (row) {
             current_row = (row - 1) % 8; // 非0 指定行
@@ -174,7 +175,7 @@ namespace TFTLCD {
             current_row = (current_row + 1) % 8; // 下一行
         }
     }
-
+    
     //% block="set backlight %cmd"
     //% weight=100
     //% group="Basic"
@@ -184,11 +185,21 @@ namespace TFTLCD {
     }
 
     //% block="clear screen"
-    //% weight=97
+    //% weight=98
     //% group="Basic"
     export function tft_clear_screen() {
         verify_runtime();
         i2cCommandSend(CMD_CLEAR_SCREEN, [0]);
+    }
+
+    //% block="R:%r G:%g B:%b"
+    //% weight=97
+    //% r.min=0 r.max=255 r.defl=255
+    //% g.min=0 g.max=255 g.defl=255
+    //% b.min=0 b.max=255 b.defl=255
+    //% group="Basic"
+    export function rgb(r: number, g: number, b: number): number {
+        return (r & 0xFF << 16) | (g & 0xFF << 8) | (b & 0xFF);
     }
     //% block="set background color %color"
     //% color.shadow="colorindexpicker"
@@ -397,7 +408,7 @@ namespace TFTLCD {
     export class GroupInfo {
         public color: number;
         public name: string;
-        constructor(color: number,name: string) {
+        constructor(color: number, name: string) {
             this.color = color;
             this.name = name;
         }
@@ -407,8 +418,8 @@ namespace TFTLCD {
     //% blockId=createGroupInfo block="color %color label %name"
     //% color.shadow="colorindexpicker"
     //% color.defl="#FF0000"
-    export function createGroupInfo(color: number,name: string): GroupInfo {
-        return new GroupInfo(color,name);
+    export function createGroupInfo(color: number, name: string): GroupInfo {
+        return new GroupInfo(color, name);
     }
 
     //% block="draw %drawtype|set Y %yarray=setMinMax|set column %column=ChartNumColmun|group1 %group1=createGroupInfo||group2 %group2=createGroupInfo|group3 %group3=createGroupInfo|group4 %group4=createGroupInfo|group5 %group5=createGroupInfo|"
