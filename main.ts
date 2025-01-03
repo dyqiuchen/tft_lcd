@@ -192,7 +192,7 @@ namespace TFTLCD {
     }
     //% block="set background color %color"
     //% color.shadow="colorindexpicker"
-    //% color.defl=0xffffff
+    //% color.defl="#000000"
     //% group="Basic"
     //% weight=96
     export function tft_set_background_color(color: number) {
@@ -205,7 +205,7 @@ namespace TFTLCD {
     }
     //% block="set draw pen color %color"
     //% color.shadow="colorindexpicker"
-    //% color.defl=0xffffff
+    //% color.defl="#FFFFFF"
     //% weight=95
     //% group="Basic"
     export function tft_set_pen_color(color: number) {
@@ -371,7 +371,7 @@ namespace TFTLCD {
 
     //% block="draw a circular loadercolor  %color"
     //% color.shadow="colorindexpicker"
-    //% color.defl=0xffffff
+    //% color.defl="#E7E6E6"
     //% weight=40
     //% group="shape"
     export function tft_draw_circular_loader(color: number) {
