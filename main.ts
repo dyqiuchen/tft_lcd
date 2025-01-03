@@ -205,7 +205,7 @@ namespace TFTLCD {
     }
     //% block="set draw pen color %color"
     //% color.shadow="colorindexpicker"
-    //% color.defl=#000000
+    //% color.defl="#000000"
     //% weight=95
     //% group="Basic"
     export function tft_set_pen_color(color: number) {
@@ -221,7 +221,7 @@ namespace TFTLCD {
     //% index.fieldEditor="colornumber"
     //% index.fieldOptions.valueMode="index"
     //% index.fieldOptions.colours='["#dedede","#ffffff","#ff2121","#ff93c4","#ff8135","#fff609","#249ca3","#78dc52","#003fad","#87f2ff","#8e2ec4","#a4839f","#5c406c","#e5cdc4","#91463d","#000000"]'
-    //% index.fieldOptions.decompileLiterals="true"
+    //% index.fieldOptions.columns=4
     export function __colorIndexPicker(index: number) {
         return index;
     }
