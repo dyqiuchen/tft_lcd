@@ -192,7 +192,7 @@ namespace TFTLCD {
     }
     //% block="set background color %color"
     //% color.shadow="colorindexpicker"
-    //% color.defl="#000000"
+    //% color.defl="#FFFFFF"
     //% group="Basic"
     //% weight=96
     export function tft_set_background_color(color: number) {
@@ -205,7 +205,7 @@ namespace TFTLCD {
     }
     //% block="set draw pen color %color"
     //% color.shadow="colorindexpicker"
-    //% color.defl="#FFFFFF"
+    //% color.defl="#000000"
     //% weight=95
     //% group="Basic"
     export function tft_set_pen_color(color: number) {
