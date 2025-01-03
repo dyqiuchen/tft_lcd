@@ -220,7 +220,7 @@ namespace TFTLCD {
     //% blockId=colorindexpicker block="$index" blockHidden=true shim=TD_ID
     //% index.fieldEditor="colornumber"
     //% index.fieldOptions.valueMode="index"
-    //% index.fieldOptions.colours='["#000000","#ffffff","#FF0000","#00FF00","#0000FF","#409EFF","#67C23A","#E6A23C","#F56C6C","#909399","#B09EFF","#7F00FF","#FF00FF","#FFFF00","#FF0080","#00FFFF"]'
+    //% index.fieldOptions.colours='["#000000","#FFFFFF","#FF0000","#00FF00","#0000FF","#FFFF00","#FF00FF","#00FFFF","#409EFF","#67C23A","#E6A23C","#F56C6C","#909399"]'
     //% index.fieldOptions.columns=4
     export function __colorIndexPicker(index: number) {
         return index;
