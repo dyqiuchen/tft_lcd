@@ -371,7 +371,7 @@ namespace TFTLCD {
 
     //% block="draw a circular loadercolor  %color"
     //% color.shadow="colorindexpicker"
-    //% color.defl=0x999999
+    //% color.defl=0xffffff
     //% weight=40
     //% group="shape"
     export function tft_draw_circular_loader(color: number) {
