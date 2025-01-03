@@ -191,7 +191,7 @@ namespace TFTLCD {
         i2cCommandSend(CMD_CLEAR_SCREEN, [0]);
     }
     //% block="set background color %color"
-    //% color.shadow="colorNumberPicker"
+    //% color.shadow="colorindexpicker"
     //% color.defl=0xffffff
     //% group="Basic"
     //% weight=96
@@ -205,7 +205,7 @@ namespace TFTLCD {
     }
     //% block="set draw pen color %color"
     //% color.shadow="colorindexpicker"
-    //% color.defl="#000000"
+    //% color.defl=0xffffff
     //% weight=95
     //% group="Basic"
     export function tft_set_pen_color(color: number) {
@@ -220,7 +220,7 @@ namespace TFTLCD {
     //% blockId=colorindexpicker block="$index" blockHidden=true shim=TD_ID
     //% index.fieldEditor="colornumber"
     //% index.fieldOptions.valueMode="index"
-    //% index.fieldOptions.colours='["#000000","#ffffff","#FF0000","#00FF00","#0000FF","#409EFF","#67C23A","#E6A23C","#F56C6C","#909399","#B09EFF","#7F00FF","#FF00FF","#FF8000","#FF0080","#00FFFF"]'
+    //% index.fieldOptions.colours='["#000000","#ffffff","#FF0000","#00FF00","#0000FF","#409EFF","#67C23A","#E6A23C","#F56C6C","#909399","#B09EFF","#7F00FF","#FF00FF","#FFFF00","#FF0080","#00FFFF"]'
     //% index.fieldOptions.columns=4
     export function __colorIndexPicker(index: number) {
         return index;
