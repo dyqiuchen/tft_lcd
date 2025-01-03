@@ -204,7 +204,7 @@ namespace TFTLCD {
         ]);
     }
     //% block="set draw pen color %color"
-    //% color.shadow="colorWheelPicker"
+    //% color.shadow="colorindexpicker"
     //% weight=95
     //% group="Basic"
     export function tft_set_pen_color(color: number) {
