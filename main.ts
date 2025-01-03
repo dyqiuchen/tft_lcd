@@ -406,6 +406,7 @@ namespace TFTLCD {
     //% blockHidden=1
     //% blockId=createGroupInfo block="color %color label %name"
     //% color.shadow="colorindexpicker"
+    //% color.defl="#FF0000"
     export function createGroupInfo(color: number,name: string): GroupInfo {
         return new GroupInfo(color,name);
     }
@@ -500,6 +501,7 @@ namespace TFTLCD {
     //% blockHidden=1
     //% blockId=createPartInfo block="value %value label %name color %color"
     //% color.shadow="colorindexpicker"
+    //% color.defl="#FF0000"
     export function createPartInfo(value: number, name: string, color: number): PartInfo {
         return new PartInfo(value, name, color);
     }
